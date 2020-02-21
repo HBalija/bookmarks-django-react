@@ -14,7 +14,9 @@ const store = configureStore();
 
 store.dispatch(addBookmark({ title: 'google', bookmarkLink: 'http://google.com' }));
 store.dispatch(addBookmark({ title: 'github', bookmarkLink: 'http://github.com' }));
-store.dispatch(addBookmark({ title: 'heroku', bookmarkLink: 'http://heroku.com' }));
+store.dispatch(addBookmark({ title: 'heroku', bookmarkLink: 'http://heroku.com', isPublic: true }));
+
+console.log(store.getState());
 
 
 const jsx = (
