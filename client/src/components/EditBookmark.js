@@ -1,8 +1,8 @@
 import React from 'react';
 
 
-const EditBookmark = () => (
-  <p>Edit bookmark</p>
+const EditBookmark = props => (
+  <p>Edit bookmark {props.match.params.id}</p>
 );
 
 export default EditBookmark;
