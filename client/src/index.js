@@ -5,19 +5,11 @@ import * as serviceWorker from './serviceWorker';
 
 import configureStore from './store/configureStore';
 import AppRouter from './routers/AppRouter';
-import { addBookmark } from './actions/bookmarks';
 
 import './index.css';
 
 
 const store = configureStore();
-
-store.dispatch(addBookmark({ title: 'google', bookmarkLink: 'http://google.com' }));
-store.dispatch(addBookmark({ title: 'github', bookmarkLink: 'http://github.com' }));
-store.dispatch(addBookmark({ title: 'heroku', bookmarkLink: 'http://heroku.com', isPublic: true }));
-
-console.log(store.getState());
-
 
 const jsx = (
   <Provider store={store}>

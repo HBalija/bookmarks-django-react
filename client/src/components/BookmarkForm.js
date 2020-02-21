@@ -7,7 +7,6 @@ class BookmarkForm extends React.Component {
     super(props);
 
     const bookmark = props.bookmark;
-    console.log(bookmark);
 
     this.state = {
       title: bookmark ? bookmark.title: '',

@@ -1,0 +1,20 @@
+- list bookmarks as anonymous user:
+curl http://127.0.0.1:8000/bookmarks/
+
+-create new user:
+curl -X POST http://127.0.0.1:8000/register/ -d '{"username": <username>, "password": <password>}' -H "Content-Type: application/json"
+
+- list bookmarks:
+curl --user <username>:<password> http://127.0.0.1:8000/bookmarks/
+
+- create new bookmark:
+curl -X POST http://127.0.0.1:8000/bookmarks/ --user <username>:<password> -d '{"name": <name>, "is_public": <true/false>, "description": <description>, "bookmark_link": "<bookmark_link>"}' -H "Content-Type: application/json"
+
+- delete bookmark by pk:
+curl -X DELETE http://127.0.0.1:8000/bookmarks/<pk>/ --user <username>:<password>
+
+- retrieve bookmark by pk:
+curl http://127.0.0.1:8000/bookmarks/<pk>/ --user <username>:<password>
+
+- partial update bookmark by pk:
+curl -X PATCH http://127.0.0.1:8000/bookmarks/<pk>/ --user <username>:<password> -d '{"name": <new_name>}' -H "Content-Type: application/json"

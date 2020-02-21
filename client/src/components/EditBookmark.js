@@ -18,7 +18,7 @@ const EditBookmarkPage = props => {
         action='Edit bookmark' />
       <button
         onClick={() => {
-          props.removebookmark(props.bookmark.id);
+          props.removeBookmark(props.bookmark.id);
           props.history.push('/');
         }}>
       Remove
