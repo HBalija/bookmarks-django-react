@@ -1,10 +1,11 @@
 import React from 'react';
 
 import BookmarkList from './BookmarkList';
+import BookmarkListFilters from './BookmarkListFilters';
 
 const BookmarksDashboard = () => (
   <div>
-    <p>bookmarks dashboard</p>
+    <BookmarkListFilters />
     <BookmarkList />
   </div>
 );

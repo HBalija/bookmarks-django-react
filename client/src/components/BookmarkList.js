@@ -1,13 +1,19 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import BookmarkListItem from './BookmarkListItem';
+import getBookmarks from '../utils/getVisibleBookmarks';
 
-
-const BookmarkList = () => (
+const BookmarkList = props => (
   <div>
-    <p>bookmarks List</p>
-    <BookmarkListItem />
+    {props.bookmarks.map(bookmark => (<BookmarkListItem key={bookmark.id} { ...bookmark } />))}
   </div>
 );
 
-export default BookmarkList;
+const mapStateToProps = state => {
+  return {
+    bookmarks: getBookmarks(state.bookmarks, state.filters)
+  };
+};
+
+export default connect(mapStateToProps)(BookmarkList);

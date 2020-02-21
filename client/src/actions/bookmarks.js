@@ -1,9 +1,13 @@
+import uuid from 'uuid';
+
+
 // ADD_BOOKMARK
 
 export const addBookmark = (
   { title = '', description = '', isPublic = false, bookmarkLink = '' } = {}) => ({
   type: 'ADD_BOOKMARK',
   bookmark: {
+    id: uuid(),
     title,
     description,
     isPublic,
