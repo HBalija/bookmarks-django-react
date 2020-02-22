@@ -64,10 +64,3 @@ export const startSetBookmarks = () => {
         throw(error);
       });
   };};
-
-
-// STOP LOADING
-
-export const stopLoading = () => ({
-  type: 'STOP_LOADING',
-});

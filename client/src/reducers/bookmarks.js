@@ -1,5 +1,5 @@
 const defaultState = {
-  loading: true,
+  listLoading: true,
   bookmarks: [],
 };
 
@@ -7,11 +7,8 @@ const bookmarksReducer = (state = defaultState, action) => {
 
   switch (action.type) {
 
-  case 'STOP_LOADING':
-    return { ...state, loading: false };
-
   case 'SET_BOOKMARKS':
-    return { ...state, bookmarks: [...action.bookmarks ] };
+    return { ...state, bookmarks: [...action.bookmarks ], listLoading: false };
 
   case 'ADD_BOOKMARK':
     return { ...state, bookmarks: [ ...state.bookmarks, action.bookmark ] };
