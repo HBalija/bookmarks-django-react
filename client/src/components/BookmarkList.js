@@ -3,17 +3,17 @@ import { connect } from 'react-redux';
 
 import BookmarkListItem from './BookmarkListItem';
 import getBookmarks from '../utils/getVisibleBookmarks';
-import { startSetBookmarks } from '../actions/bookmarks';
+import { startSetBookmarks, stopLoading } from '../actions/bookmarks';
 
 
 class BookmarkList extends React.Component {
 
   componentDidMount(){
-    this.props.startSetBookmarks();
+    if (!this.props.bookmarks.length && this.props.loading) this.props.startSetBookmarks();
+    this.props.stopLoading();
   }
 
   render() {
-
     return (
       <div>
         {
@@ -36,7 +36,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    startSetBookmarks: () => dispatch(startSetBookmarks())
+    startSetBookmarks: () => dispatch(startSetBookmarks()),
+    stopLoading: () => dispatch(stopLoading())
   };
 };
 

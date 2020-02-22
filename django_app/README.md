@@ -1,9 +1,4 @@
-# Bookmark App
-
-Api demo included with management command.
-
-
-### Quickstart
+## Backend Quickstart
 
 Create Python3 virtual environment
 

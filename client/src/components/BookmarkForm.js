@@ -12,7 +12,7 @@ class BookmarkForm extends React.Component {
       name: bookmark ? bookmark.name: '',
       description: bookmark ? bookmark.description : '',
       bookmark_link: bookmark ? bookmark.bookmark_link : '',
-      isPublic: bookmark ? bookmark.isPublic : false,
+      is_public: bookmark ? bookmark.is_public : false,
       error: ''
     };
   }
@@ -33,8 +33,8 @@ class BookmarkForm extends React.Component {
   }
 
   onIsPublicChange = e => {
-    const isPublic = e.target.checked;
-    this.setState(() => ({ isPublic }));
+    const is_public = e.target.checked;
+    this.setState(() => ({ is_public }));
   }
 
 
@@ -51,7 +51,7 @@ class BookmarkForm extends React.Component {
         name: this.state.name,
         description: this.state.description,
         bookmark_link: this.state.bookmark_link,
-        isPublic: this.state.isPublic
+        is_public: this.state.is_public
       });
     }
   }
@@ -76,7 +76,7 @@ class BookmarkForm extends React.Component {
             <input
               type="checkbox"
               onChange={this.onIsPublicChange}
-              defaultChecked={this.state.isPublic}
+              defaultChecked={this.state.is_public}
               value={this.state.bookmark_link} />
           Is bookmark public?</label>
           <textarea
