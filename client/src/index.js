@@ -8,7 +8,7 @@ import configureStore from './store/configureStore';
 import AppRouter from './routers/AppRouter';
 
 
-import './index.css';
+import './index.scss';
 
 
 const store = configureStore();

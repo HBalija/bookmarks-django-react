@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import BookmarkListItem from './BookmarkListItem';
 import getBookmarks from '../utils/getVisibleBookmarks';
 import { startSetBookmarks, stopLoading } from '../actions/bookmarks';
+import Spinner from './Spinner';
 
 
 class BookmarkList extends React.Component {
@@ -18,7 +19,7 @@ class BookmarkList extends React.Component {
       <div>
         {
           this.props.loading ?
-            <p>loading</p> :
+            <Spinner /> :
             this.props.bookmarks.map(bookmark => (
               <BookmarkListItem key={bookmark.id} { ...bookmark } />))
         }
