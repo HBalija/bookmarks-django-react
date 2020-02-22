@@ -3,17 +3,41 @@ import { connect } from 'react-redux';
 
 import BookmarkListItem from './BookmarkListItem';
 import getBookmarks from '../utils/getVisibleBookmarks';
+import { startSetBookmarks } from '../actions/bookmarks';
 
-const BookmarkList = props => (
-  <div>
-    {props.bookmarks.map(bookmark => (<BookmarkListItem key={bookmark.id} { ...bookmark } />))}
-  </div>
-);
+
+class BookmarkList extends React.Component {
+
+  componentDidMount(){
+    this.props.startSetBookmarks();
+  }
+
+  render() {
+
+    return (
+      <div>
+        {
+          this.props.loading ?
+            <p>loading</p> :
+            this.props.bookmarks.map(bookmark => (
+              <BookmarkListItem key={bookmark.id} { ...bookmark } />))
+        }
+      </div>
+    );
+  }
+}
 
 const mapStateToProps = state => {
   return {
-    bookmarks: getBookmarks(state.bookmarks, state.filters)
+    bookmarks: getBookmarks(state.bookmarks.bookmarks, state.filters),
+    loading: state.bookmarks.loading
   };
 };
 
-export default connect(mapStateToProps)(BookmarkList);
+const mapDispatchToProps = dispatch => {
+  return {
+    startSetBookmarks: () => dispatch(startSetBookmarks())
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(BookmarkList);

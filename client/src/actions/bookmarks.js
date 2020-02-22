@@ -1,17 +1,18 @@
 import uuid from 'uuid';
 
+import axios from '../axios';
 
 // ADD_BOOKMARK
 
 export const addBookmark = (
-  { title = '', description = '', isPublic = false, bookmarkLink = '' } = {}) => ({
+  { name = '', description = '', isPublic = false, bookmark_link = '' } = {}) => ({
   type: 'ADD_BOOKMARK',
   bookmark: {
     id: uuid(),
-    title,
+    name,
     description,
     isPublic,
-    bookmarkLink
+    bookmark_link
   }
 });
 
@@ -31,3 +32,24 @@ export const editBookmark = (id, updates) => ({
   id,
   updates
 });
+
+
+// FETCH BOOKMARKS
+
+export const stopLoading = () => ({
+  type: 'STOP_LOADING',
+});
+
+export const setBookmarks = bookmarks => ({
+  type: 'SET_BOOKMARKS',
+  bookmarks
+});
+
+export const startSetBookmarks = () => {
+  return dispatch => {
+    axios.get('/bookmarks')
+      .then(response => {
+        dispatch(setBookmarks(response.data));
+        dispatch(stopLoading());
+      });
+  };};

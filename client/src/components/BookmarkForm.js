@@ -9,17 +9,17 @@ class BookmarkForm extends React.Component {
     const bookmark = props.bookmark;
 
     this.state = {
-      title: bookmark ? bookmark.title: '',
+      name: bookmark ? bookmark.name: '',
       description: bookmark ? bookmark.description : '',
-      bookmarkLink: bookmark ? bookmark.bookmarkLink : '',
+      bookmark_link: bookmark ? bookmark.bookmark_link : '',
       isPublic: bookmark ? bookmark.isPublic : false,
       error: ''
     };
   }
 
-  onTitleChange = e => {
-    const title = e.target.value;
-    this.setState(() => ({ title }));
+  onNameChange = e => {
+    const name = e.target.value;
+    this.setState(() => ({ name }));
   }
 
   onDescriptionChange = e => {
@@ -28,8 +28,8 @@ class BookmarkForm extends React.Component {
   }
 
   onBookmarkLinkChange = e => {
-    const bookmarkLink = e.target.value;
-    this.setState(() => ({ bookmarkLink }));
+    const bookmark_link = e.target.value;
+    this.setState(() => ({ bookmark_link }));
   }
 
   onIsPublicChange = e => {
@@ -41,16 +41,16 @@ class BookmarkForm extends React.Component {
   onSubmit = e => {
     e.preventDefault();
 
-    if (!this.state.title || !this.state.bookmarkLink) {
-      this.setState(() => ({ error: 'Please provide title and bookmark link.' }));
+    if (!this.state.name || !this.state.bookmark_link) {
+      this.setState(() => ({ error: 'Please provide name and bookmark link.' }));
     } else {
       this.setState(() => ({ error: '' }));
 
       // submit the form (logic is in add / edit bookmark)
       this.props.onSubmit({
-        title: this.state.title,
+        name: this.state.name,
         description: this.state.description,
-        bookmarkLink: this.state.bookmarkLink,
+        bookmark_link: this.state.bookmark_link,
         isPublic: this.state.isPublic
       });
     }
@@ -63,23 +63,21 @@ class BookmarkForm extends React.Component {
         <form onSubmit={this.onSubmit}>
           <input
             type="text"
-            placeholder="Title"
-            value={this.state.title}
-            onChange={this.onTitleChange}
+            placeholder="Name"
+            value={this.state.name}
+            onChange={this.onNameChange}
             autoFocus />
           <input
             type="url"
-            value={this.state.bookmarkLink}
+            value={this.state.bookmark_link}
             onChange={this.onBookmarkLinkChange}
             placeholder="Bookmark Link" />
-          <label htmlFor="bookmarkLink">
+          <label htmlFor="bookmark_link">
             <input
               type="checkbox"
               onChange={this.onIsPublicChange}
               defaultChecked={this.state.isPublic}
-              // id="bookmarkLink"
-              // name="bookmarkLink"
-              value={this.state.bookmarkLink} />
+              value={this.state.bookmark_link} />
           Is bookmark public?</label>
           <textarea
             placeholder="Add a description for your bookmark (optional)"

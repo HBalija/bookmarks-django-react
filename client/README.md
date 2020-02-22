@@ -1,9 +1,9 @@
-# Frontend
+## Frontend Quickstart
 
 Install dependencies:
 
-  yarn install
+    yarn install
 
 Run development server:
 
-  yarn start
+    yarn start
