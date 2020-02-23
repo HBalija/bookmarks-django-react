@@ -13,9 +13,20 @@ export const addBookmark = (
     name,
     description,
     is_public,
-    bookmark_link
+    bookmark_link,
+    user: {
+      username: JSON.parse(localStorage.getItem('bookmarksData')).username
+    }
   }
 });
+
+export const startAddBookmark = data => {
+  console.log(data);
+  return dispatch => {
+    axiosInstance.post('/bookmarks/', data);
+    dispatch(addBookmark(data));
+  };
+};
 
 
 // REMOVE_BOOKMARK
@@ -27,8 +38,8 @@ export const removeBookmark = id => ({
 
 export const startRemoveBookmark = id => {
   return dispatch => {
-    dispatch(removeBookmark(id));
     axiosInstance.delete(`/bookmarks/${id}/`);
+    dispatch(removeBookmark(id));
   };
 };
 
@@ -58,7 +69,7 @@ export const setBookmarks = bookmarks => ({
 
 export const startSetBookmarks = () => {
   return dispatch => {
-    axiosInstance.get('/bookmarks')
+    axiosInstance.get('/bookmarks/')
       .then(response => {
         dispatch(setBookmarks(response.data));
       })
@@ -66,3 +77,13 @@ export const startSetBookmarks = () => {
         throw(error);
       });
   };};
+
+
+// SET_LOADING
+
+export const startListLoading = () => ({ type: 'START_LIST_LOADING' });
+
+
+// ON_LOGOUT_SET
+
+export const onLogoutSetBookmarks = () => ({ type: 'ON_LOGOUT_SET' });

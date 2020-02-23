@@ -7,15 +7,15 @@ import BookmarksDashboard from '../components/BookmarskDashboard/BookmarksDashbo
 import AddBookmark from '../components/AddBookmark/AddBookmark';
 import EditBookmark from '../components/EditBookmark/EditBookmark';
 import NotFoundPage from '../components/NotFoundPage/NotFoundPage';
+import UserForm from '../components/UserForm/UserForm';
 
-import { getToken } from '../store/actions/users';
+import { startSetBookmarks } from '../store/actions/bookmarks';
+import { onRefreshAuthenticate } from '../store/actions/users';
 
 class AppRouter extends React.Component {
 
   componentDidMount() {
-    // localStorage.setItem('access_token', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNTgyODgyOTY2LCJqdGkiOiIzMGY5YWM0YzBjNTE0NmJjYTdkNDdhMWMzMTljMzFlYyIsInVzZXJfaWQiOjF9.5XxCBm6LY5Tjg8rE9ikcXO2OzIJiGgDo9IMcK4ocnW8');
-    // localStorage.setItem('username', 'hrvoje');
-    this.props.getToken();
+    this.props.onRefreshAuthenticate();
   }
 
   render() {
@@ -27,6 +27,7 @@ class AppRouter extends React.Component {
             <Route path='/' component={BookmarksDashboard} exact={true} />
             <Route path='/create' component={AddBookmark} />
             <Route path='/edit/:id' component={EditBookmark} />
+            <Route path='/authenticate' component={UserForm} />
             <Route component={NotFoundPage} />
           </Switch>
         </div>
@@ -37,7 +38,8 @@ class AppRouter extends React.Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    getToken: () => dispatch(getToken())
+    onRefreshAuthenticate: () => dispatch(onRefreshAuthenticate()),
+    startSetBookmarks: () => dispatch(startSetBookmarks())
   };
 };
 

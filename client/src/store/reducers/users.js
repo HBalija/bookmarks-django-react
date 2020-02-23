@@ -1,13 +1,21 @@
 const userReducerDefaultState = {
-  isAuthenticated: null,
-  username: null
+  username: '',
+  isAuthenticated: false,
+  refreshToken: '',
+  accessToken: ''
 };
 
 export default (state = userReducerDefaultState, action) => {
 
   switch (action.type) {
-  case 'GET_USER_DATA':
-    return { ...state, isAuthenticated: !!action.userToken, username: action.username };
+  case 'ON_REFRESH_AUTHENTICATE':
+    return { ...action.data };
+
+  case 'ON_LOAD_AUTHENTICATE':
+    return { ...action.data };
+
+  case 'LOGOUT':
+    return { ...userReducerDefaultState };
 
   default:
     return state;

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { addBookmark } from '../../store/actions/bookmarks';
+import { startAddBookmark } from '../../store/actions/bookmarks';
 import BookmarkForm from '../BookmarkForm/BookmarkForm';
 
 
@@ -9,8 +9,7 @@ const AddBookmark = props => (
   <div>
     <h1>Add Bookmark</h1>
     <BookmarkForm onSubmit={bookmark => {
-      // create bookmark and redirect to dashboard
-      props.addBookmark(bookmark);
+      props.startAddBookmark(bookmark);
       props.history.push('/');
     }}
     action='Add bookmark' />
@@ -19,7 +18,7 @@ const AddBookmark = props => (
 
 const mapDispatchToProps = dispatch => {
   return {
-    addBookmark: bookmark => dispatch(addBookmark(bookmark))
+    startAddBookmark: bookmark => dispatch(startAddBookmark(bookmark))
   };
 };
 

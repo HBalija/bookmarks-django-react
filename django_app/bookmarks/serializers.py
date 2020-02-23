@@ -16,7 +16,7 @@ class UserSerializer(serializers.ModelSerializer):
 
 class BookmarkSerializer(serializers.ModelSerializer):
 
-    user = UserSerializer()
+    user = UserSerializer(read_only=True)
 
     class Meta:
         model = Bookmark
