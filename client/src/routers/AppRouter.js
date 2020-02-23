@@ -13,6 +13,8 @@ import { getToken } from '../store/actions/users';
 class AppRouter extends React.Component {
 
   componentDidMount() {
+    // localStorage.setItem('access_token', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNTgyODgyOTY2LCJqdGkiOiIzMGY5YWM0YzBjNTE0NmJjYTdkNDdhMWMzMTljMzFlYyIsInVzZXJfaWQiOjF9.5XxCBm6LY5Tjg8rE9ikcXO2OzIJiGgDo9IMcK4ocnW8');
+    // localStorage.setItem('username', 'hrvoje');
     this.props.getToken();
   }
 

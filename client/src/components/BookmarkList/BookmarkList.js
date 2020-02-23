@@ -29,8 +29,8 @@ class BookmarkList extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    bookmarks: getBookmarks(state.bookmarks.bookmarks, state.filters),
-    listLoading: state.bookmarks.listLoading
+    bookmarks: getBookmarks(state.bookmarks.bookmarks, state.filters, state.users.username),
+    listLoading: state.bookmarks.listLoading,
   };
 };
 

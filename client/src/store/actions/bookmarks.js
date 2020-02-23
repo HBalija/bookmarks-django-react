@@ -2,6 +2,7 @@ import uuid from 'uuid';
 
 import axiosInstance from '../../axios';
 
+
 // ADD_BOOKMARK
 
 export const addBookmark = (
@@ -31,6 +32,7 @@ export const startRemoveBookmark = id => {
   };
 };
 
+
 // EDIT_BOOKMARK
 
 export const editBookmark = (id, updates) => ({
@@ -59,7 +61,6 @@ export const startSetBookmarks = () => {
     axiosInstance.get('/bookmarks')
       .then(response => {
         dispatch(setBookmarks(response.data));
-        console.log(response.data);
       })
       .catch(error =>{
         throw(error);

@@ -6,11 +6,16 @@ export const setTextFilter = (text = '') => ({
 });
 
 
-// SORT_BY_PUBLIC
+// SHOW_USER_BOOKMARKS
 
-export const sortByPublic = () => ({ type: 'SORT_BY_PUBLIC' });
+export const showUser = () => ({ type: 'SHOW_USER_BOOKMARKS' });
 
 
-// SORT_BY_DATE
+// SHOW_ALL_BOOKMARKS
 
-export const sortByUser = () => ({ type: 'SORT_BY_USER' });
+export const showAll = () => ({ type: 'SHOW_ALL_BOOKMARKS' });
+
+
+// SHOW_PUBLIC_BOOKMARKS
+
+export const showPublic = () => ({ type: 'SHOW_PUBLIC_BOOKMARKS' });

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { setTextFilter } from '../../store/actions/filters';
+import { setTextFilter, showUser, showAll, showPublic } from '../../store/actions/filters';
 
 
 const BookmarkListFilters = props => (
@@ -13,18 +13,37 @@ const BookmarkListFilters = props => (
         value={props.filters.text}
         onChange={e => props.setTextFilter(e.target.value)} />
     </label>
+
+    { props.isAuthenticated &&
+    <select
+      value={props.filters.show}
+      onChange={e => {
+        const data = e.target.value;
+        if (data === 'all') props.showAll();
+        else if (data === 'user') props.showUser();
+        else if (data === 'public') props.showPublic();
+      }} >
+      <option value="all">All</option>
+      <option value="user">My</option>
+      <option value="public">Public</option>
+    </select>
+    }
   </div>
 );
 
 const mapStateToProps = state => {
   return {
-    filters: state.filters
+    filters: state.filters,
+    isAuthenticated: state.users.isAuthenticated
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    setTextFilter: value => dispatch(setTextFilter(value))
+    setTextFilter: value => dispatch(setTextFilter(value)),
+    showAll: () => dispatch(showAll()),
+    showPublic: () => dispatch(showPublic()),
+    showUser: () => dispatch(showUser())
   };
 };
 

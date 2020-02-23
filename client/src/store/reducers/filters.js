@@ -1,7 +1,7 @@
 
 const filterReducerDefaultState = {
   text: '',
-  sortBy: 'public',
+  show: 'all',
 };
 
 export default (state = filterReducerDefaultState, action) => {
@@ -11,11 +11,14 @@ export default (state = filterReducerDefaultState, action) => {
   case 'SET_TEXT_FILTER':
     return { ...state, text: action.text };
 
-  case 'SORT_BY_PUBLIC':
-    return { ...state, sortBy: 'public' };
+  case 'SHOW_ALL_BOOKMARKS':
+    return { ...state, show: 'all' };
 
-  case 'SORT_BY_USER':
-    return { ...state, sortBy: 'user' };
+  case 'SHOW_PUBLIC_BOOKMARKS':
+    return { ...state, show: 'public' };
+
+  case 'SHOW_USER_BOOKMARKS':
+    return { ...state, show: 'user' };
 
   default:
     return state;
