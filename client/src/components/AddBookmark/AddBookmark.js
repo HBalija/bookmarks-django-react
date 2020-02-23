@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { addBookmark } from '../actions/bookmarks';
-import BookmarkForm from './BookmarkForm';
+import { addBookmark } from '../../store/actions/bookmarks';
+import BookmarkForm from '../BookmarkForm/BookmarkForm';
 
 
 const AddBookmark = props => (

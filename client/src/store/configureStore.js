@@ -1,8 +1,8 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import  thunk from 'redux-thunk';
 
-import bookmarksReducer from '../reducers/bookmarks';
-import filtersReducer from '../reducers/filters';
+import bookmarksReducer from './reducers/bookmarks';
+import filtersReducer from './reducers/filters';
 
 // const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 

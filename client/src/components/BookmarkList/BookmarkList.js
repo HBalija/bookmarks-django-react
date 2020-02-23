@@ -1,10 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import BookmarkListItem from './BookmarkListItem';
-import getBookmarks from '../utils/getVisibleBookmarks';
-import { startSetBookmarks } from '../actions/bookmarks';
-import Spinner from './Spinner';
+import BookmarkListItem from '../BookmarkListItem/BookmarkListItem';
+import getBookmarks from '../../utils/getVisibleBookmarks';
+import { startSetBookmarks } from '../../store/actions/bookmarks';
+import Spinner from '../Spinner/Spinner';
 
 
 class BookmarkList extends React.Component {

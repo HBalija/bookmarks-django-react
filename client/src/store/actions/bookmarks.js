@@ -1,6 +1,6 @@
 import uuid from 'uuid';
 
-import axios from '../axios';
+import axiosInstance from '../../axios';
 
 // ADD_BOOKMARK
 
@@ -27,7 +27,7 @@ export const removeBookmark = id => ({
 export const startRemoveBookmark = id => {
   return dispatch => {
     dispatch(removeBookmark(id));
-    axios.delete(`/bookmarks/${id}/`);
+    axiosInstance.delete(`/bookmarks/${id}/`);
   };
 };
 
@@ -42,7 +42,7 @@ export const editBookmark = (id, updates) => ({
 export const startEditBookmark = (id, updates) => {
   return dispatch => {
     dispatch(editBookmark(id, updates));
-    axios.patch(`/bookmarks/${id}/`, updates);
+    axiosInstance.patch(`/bookmarks/${id}/`, updates);
   };
 };
 
@@ -56,7 +56,7 @@ export const setBookmarks = bookmarks => ({
 
 export const startSetBookmarks = () => {
   return dispatch => {
-    axios.get('/bookmarks')
+    axiosInstance.get('/bookmarks')
       .then(response => {
         dispatch(setBookmarks(response.data));
       })

@@ -1,11 +1,11 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
-import Header from '../components/Header';
-import BookmarksDashboard from '../components/BookmarksDashboard';
-import AddBookmark from '../components/AddBookmark';
-import EditBookmark from '../components/EditBookmark';
-import NotFoundPage from '../components/NotFoundPage';
+import Header from '../components/Header/Header';
+import BookmarksDashboard from '../components/BookmarskDashboard/BookmarksDashboard';
+import AddBookmark from '../components/AddBookmark/AddBookmark';
+import EditBookmark from '../components/EditBookmark/EditBookmark';
+import NotFoundPage from '../components/NotFoundPage/NotFoundPage';
 
 const AppRouter = () => (
   <BrowserRouter>

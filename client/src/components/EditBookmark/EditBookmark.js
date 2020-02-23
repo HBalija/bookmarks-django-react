@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import BookmarkForm from './BookmarkForm';
-import { startRemoveBookmark, startEditBookmark } from '../actions/bookmarks';
-import Spinner from './Spinner';
-import NotFoundPage from './NotFoundPage';
-import axios from '../axios';
+import BookmarkForm from '../BookmarkForm/BookmarkForm';
+import Spinner from '../Spinner/Spinner';
+import NotFoundPage from '../NotFoundPage/NotFoundPage';
+import axiosInstance from '../../axios';
+import { startRemoveBookmark, startEditBookmark } from '../../store/actions/bookmarks';
 
 
 class EditBookmark extends React.Component {
@@ -23,7 +23,7 @@ class EditBookmark extends React.Component {
 
   componentDidMount() {
     if (this.state.loading) {
-      axios.get(`/bookmarks/${this.props.match.params.id}/`)
+      axiosInstance.get(`/bookmarks/${this.props.match.params.id}/`)
         .then(response =>{
           this.setState(() => ({ bookmark: response.data,  loading: false }));
         })
