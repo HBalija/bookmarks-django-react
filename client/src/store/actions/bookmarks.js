@@ -59,6 +59,7 @@ export const startSetBookmarks = () => {
     axiosInstance.get('/bookmarks')
       .then(response => {
         dispatch(setBookmarks(response.data));
+        console.log(response.data);
       })
       .catch(error =>{
         throw(error);

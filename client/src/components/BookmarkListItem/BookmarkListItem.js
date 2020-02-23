@@ -1,12 +1,21 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 
-const BookmarkListItem = ({ id, bookmark_link, name }) => (
+const BookmarkListItem = props => (
   <div>
-    <Link to={`/edit/${id}`}><h3>{name}</h3></Link>
-    <p><a href={bookmark_link}>Visit page: {name}</a>  </p>
+    <h3>{props.name}</h3>
+    <p>{props.description}</p>
+    { props.user.username === props.currentUser && <Link to={`/edit/${props.id}`}>EDIT</Link> }
+    <p><a href={props.bookmark_link}>Visit bookmark</a>  </p>
   </div>
 );
 
-export default BookmarkListItem;
+const mapStateToProps = state => {
+  return {
+    currentUser: state.users.username
+  };
+};
+
+export default connect(mapStateToProps)(BookmarkListItem);

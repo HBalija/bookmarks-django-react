@@ -35,7 +35,6 @@ class EditBookmark extends React.Component {
   }
 
   render () {
-
     let jsx = (
       <div>
         <BookmarkForm
@@ -66,7 +65,6 @@ const mapStateToProps = (state, ownProps) => {
   return {
     bookmark: state.bookmarks.bookmarks.find(
       bookmark => bookmark.id === parseInt(ownProps.match.params.id)),
-    loading: state.bookmarks.loading
   };
 };
 

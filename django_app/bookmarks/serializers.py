@@ -4,15 +4,23 @@ from rest_framework import serializers
 from bookmarks.models import Bookmark
 
 
+UserModel = get_user_model()
+
+
+class UserSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = UserModel
+        fields = ('id', 'username')
+
+
 class BookmarkSerializer(serializers.ModelSerializer):
+
+    user = UserSerializer()
 
     class Meta:
         model = Bookmark
         fields = ('id', 'description', 'user', 'is_public', 'name', 'bookmark_link', 'created_at')
-        read_only_fields = ('user', )
-
-
-UserModel = get_user_model()
 
 
 class UserRegisterSerializer(serializers.ModelSerializer):

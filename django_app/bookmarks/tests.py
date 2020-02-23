@@ -50,7 +50,7 @@ class AnnonymousUserBookmarkTest(BaseTestCase):
 
     def test_anonymous_user_bookmark_create(self):
         response = self.client.post(reverse('bookmark-list'))
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 401)
 
     def test_anonymous_user_bookmark_list(self):
         response = self.client.get(reverse('bookmark-list'))
@@ -69,7 +69,7 @@ class AnnonymousUserBookmarkTest(BaseTestCase):
 
     def test_anonymous_user_bookmark_delete(self):
         response = self.client.delete(reverse('bookmark-detail', kwargs={'pk': self.bookmark1.id}))
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 401)
 
 
 class RegisteredUserBookmarkTest(BaseTestCase):
