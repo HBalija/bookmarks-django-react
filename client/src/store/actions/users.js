@@ -8,14 +8,14 @@ export const onRefreshAuthenticate = () => {
   const data = JSON.parse(localStorage.getItem('bookmarksData'));
 
   return {
-    type: 'ON_REFRESH_AUTHENTICATE',
+    type: 'AUTHENTICATE',
     data
   };
 };
 
 export const onLoadAuthenticate = data => {
   return {
-    type: 'ON_LOAD_AUTHENTICATE',
+    type: 'AUTHENTICATE',
     data
   };
 

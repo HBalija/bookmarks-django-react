@@ -3,15 +3,19 @@ import { connect } from 'react-redux';
 
 import BookmarkListItem from '../BookmarkListItem/BookmarkListItem';
 import getBookmarks from '../../utils/getVisibleBookmarks';
-import { startSetBookmarks } from '../../store/actions/bookmarks';
+import { startSetBookmarks, startListLoading } from '../../store/actions/bookmarks';
 import Spinner from '../Spinner/Spinner';
 
 
 class BookmarkList extends React.Component {
 
-  componentDidMount(){
+  state = {
+    tokenOnLogin: ''
+  }
+
+  componentDidMount() {
+    // required check for editing and deleting bookmarks (setting state in store)
     if (this.props.listLoading) this.props.startSetBookmarks();
-    // this.props.startSetBookmarks();
   }
 
   render() {
@@ -31,14 +35,15 @@ class BookmarkList extends React.Component {
 const mapStateToProps = state => {
   return {
     bookmarks: getBookmarks(state.bookmarks.bookmarks, state.filters, state.users.username),
-    listLoading: state.bookmarks.listLoading
-
+    listLoading: state.bookmarks.listLoading,
+    user: state.users
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     startSetBookmarks: () => dispatch(startSetBookmarks()),
+    startListLoading: () => dispatch(startListLoading())
   };
 };
 

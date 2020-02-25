@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import Header from '../components/Header/Header';
@@ -9,8 +9,8 @@ import EditBookmark from '../components/EditBookmark/EditBookmark';
 import NotFoundPage from '../components/NotFoundPage/NotFoundPage';
 import UserForm from '../components/UserForm/UserForm';
 
-import { startSetBookmarks } from '../store/actions/bookmarks';
 import { onRefreshAuthenticate } from '../store/actions/users';
+
 
 class AppRouter extends React.Component {
 
@@ -19,28 +19,52 @@ class AppRouter extends React.Component {
   }
 
   render() {
+
+    let routes = (
+      <Switch>
+        <Route path='/' component={BookmarksDashboard} exact={true} />
+        <Route path='/auth' component={UserForm} />
+        <Redirect to='/' />
+        <Route component={NotFoundPage} />
+      </Switch>
+
+    );
+
+    if (this.props.isAuthenticated) {
+      routes = (
+        <Switch>
+          <Route path='/' component={BookmarksDashboard} exact={true} />
+          <Route path='/create' component={AddBookmark} />
+          <Route path='/edit/:id' component={EditBookmark} />
+          <Redirect to='/' />
+          <Route component={NotFoundPage} />
+        </Switch>
+      );
+    }
+
     return (
       <BrowserRouter>
         <div>
           <Header />
-          <Switch>
-            <Route path='/' component={BookmarksDashboard} exact={true} />
-            <Route path='/create' component={AddBookmark} />
-            <Route path='/edit/:id' component={EditBookmark} />
-            <Route path='/authenticate' component={UserForm} />
-            <Route component={NotFoundPage} />
-          </Switch>
+          {routes}
         </div>
       </BrowserRouter>
     );
   }
 }
 
+
+const mapStateToProps = state => {
+  return {
+    isAuthenticated: state.users.isAuthenticated
+  };
+
+};
+
 const mapDispatchToProps = dispatch => {
   return {
     onRefreshAuthenticate: () => dispatch(onRefreshAuthenticate()),
-    startSetBookmarks: () => dispatch(startSetBookmarks())
   };
 };
 
-export default connect(null, mapDispatchToProps)(AppRouter);
+export default connect(mapStateToProps, mapDispatchToProps)(AppRouter);

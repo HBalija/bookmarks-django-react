@@ -13,7 +13,7 @@ const Header =  props => (
     { props.isAuthenticated &&
       <NavLink to="/create" activeClassName="is-active">Create Bookmark</NavLink> }
     { !props.isAuthenticated ?
-      <NavLink to="/authenticate" activeClassName="is-active">Authenticate</NavLink> :
+      <NavLink to="/auth" activeClassName="is-active">Authenticate</NavLink> :
       <span onClick={() => {
         props.logout();
         props.onLogoutSetBookmarks();

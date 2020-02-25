@@ -8,10 +8,7 @@ const userReducerDefaultState = {
 export default (state = userReducerDefaultState, action) => {
 
   switch (action.type) {
-  case 'ON_REFRESH_AUTHENTICATE':
-    return { ...action.data };
-
-  case 'ON_LOAD_AUTHENTICATE':
+  case 'AUTHENTICATE':
     return { ...action.data };
 
   case 'LOGOUT':
@@ -21,3 +18,11 @@ export default (state = userReducerDefaultState, action) => {
     return state;
   }
 };
+
+
+console.log();
+/*
+- ON REFRESH_AUTHENICATE
+- ON_LOAD AUTHENTICATE
+
+*/

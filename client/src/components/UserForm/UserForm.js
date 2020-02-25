@@ -54,7 +54,7 @@ class UserForm extends React.Component {
 
       //   });
       this.props.startAuthenticate(authData);
-      // this.props.startListLoading();
+      this.props.startListLoading();
       this.props.history.push('/');
     }
   }
