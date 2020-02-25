@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { startAuthenticate, onLoadAuthenticate } from '../../store/actions/users';
-import { startSetBookmarks, startListLoading } from '../../store/actions/bookmarks';
+import { startAuthenticate, onLoadAuthenticate } from '../store/actions/users';
+import { startSetBookmarks, startListLoading } from '../store/actions/bookmarks';
 // import axiosInstance from '../../axios';
 
 class UserForm extends React.Component {
@@ -72,28 +72,34 @@ class UserForm extends React.Component {
     return (
       <div>
         {this.state.error && <p>{this.state.error}</p> }
-        <form onSubmit={this.onSubmit}>
-          <input
-            type="text"
-            value={this.state.username}
-            onChange={this.onUsernameChange}
-            placeholder="username"
-            autoFocus />
-          <input
-            type="password"
-            value={this.state.password}
-            placeholder="password"
-            onChange={this.onPasswordChange} />
+        <div className="center-container">
+          <form onSubmit={this.onSubmit} className="form" >
+            <input
+              className="text-input"
+              type="text"
+              value={this.state.username}
+              onChange={this.onUsernameChange}
+              placeholder="username"
+              autoFocus />
+            <input
+              className="text-input"
+              type="password"
+              value={this.state.password}
+              placeholder="password"
+              onChange={this.onPasswordChange} />
 
-          <button>{this.state.action}</button>
-        </form>
+            <button>{this.state.action}</button>
+            <p
+              onClick={this.onActionChange}
+              className="signin-switch">
+          Go to {this.state.action === 'Sign up' ? ' Sign in' : ' Sign up' }
 
-        <p>Go to
-          <span onClick={this.onActionChange}>
-            {this.state.action === 'Sign up' ? ' Sign in' : ' Sign up' }
-          </span>
-        </p>
+            </p>
+          </form>
+        </div>
+
       </div>
+
     );
   }
 }

@@ -1,4 +1,4 @@
-@import './components/Spinner/Spinner';
+@import './styles/styles';
 
 
 body {
@@ -8,6 +8,11 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: url('/images/background.jpeg');
+  background-position: top right;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
 }
 
 code {

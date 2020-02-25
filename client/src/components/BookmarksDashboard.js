@@ -1,7 +1,7 @@
 import React from 'react';
 
-import BookmarkList from '../BookmarkList/BookmarkList';
-import BookmarkListFilters from '../BookmarkListFilters/BookmarkListFilters';
+import BookmarkList from './BookmarkList';
+import BookmarkListFilters from './BookmarkListFilters';
 
 const BookmarksDashboard = () => (
   <div>

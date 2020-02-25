@@ -1,13 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { startAddBookmark } from '../../store/actions/bookmarks';
-import BookmarkForm from '../BookmarkForm/BookmarkForm';
+import { startAddBookmark } from '../store/actions/bookmarks';
+import BookmarkForm from './BookmarkForm';
 
 
 const AddBookmark = props => (
   <div>
-    <h1>Add Bookmark</h1>
     <BookmarkForm onSubmit={bookmark => {
       props.startAddBookmark(bookmark);
       props.history.push('/');

@@ -65,20 +65,9 @@ export const setBookmarks = bookmarks => ({
   type: 'SET_BOOKMARKS',
   bookmarks
 });
-/*
-post("http://localhost:8080/foo", foo, {  headers: { Authorization: "Bearer " + token }})
-
-*/
 
 export const startSetBookmarks = () => {
   return dispatch => {
-    // const tokenData = JSON.parse(localStorage.getItem('bookmarksData'));
-
-    // const extra = {};
-    // if (tokenData) {
-    //   extra.headers = { Authorization:`JWT ${tokenData.accessToken}` };
-    // }
-    console.log();
     axiosInstance.get('/bookmarks/')
       .then(response => {
         dispatch(setBookmarks(response.data));

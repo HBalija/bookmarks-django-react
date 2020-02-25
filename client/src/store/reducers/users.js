@@ -18,11 +18,3 @@ export default (state = userReducerDefaultState, action) => {
     return state;
   }
 };
-
-
-console.log();
-/*
-- ON REFRESH_AUTHENICATE
-- ON_LOAD AUTHENTICATE
-
-*/

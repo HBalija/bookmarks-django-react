@@ -1,0 +1,21 @@
+.form {
+  margin-top: 3rem;
+  width: 60vh;
+  display: flex;
+  flex-direction: column;
+
+  button {
+    background-color: $dark-blue;
+    color: #fff;
+    border: none;
+    padding: $s-size;
+    font-weight: 300;
+    font-size: $font-size-small;
+    cursor: pointer
+
+  }
+    > * {
+    margin-bottom: $m-size;
+  }
+
+}

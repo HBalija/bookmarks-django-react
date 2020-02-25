@@ -1,0 +1,41 @@
+.text-input {
+  border: 1px solid #cacccd;
+  padding: 10px;
+  font-size: $font-size-x-small;
+}
+
+.textarea {
+  @extend .text-input;
+  height: 5rem;
+}
+
+.select {
+  @extend .text-input;
+  margin-right: 1rem;
+}
+
+.fake-button {
+  color: $blue;
+  display: inline-block;
+  text-decoration: none;
+  background-color: #EEEEEE;
+  text-align: center;
+  padding: 1px;
+  padding-left: 5px;
+}
+
+.button {
+  @extend .fake-button;
+  padding: $xs-size ;
+  cursor:pointer;
+}
+
+.button-header-login {
+  @extend .button;
+  color: $dark-blue;
+}
+
+.signin-switch {
+  @extend .button;
+  margin: 0 20%
+}

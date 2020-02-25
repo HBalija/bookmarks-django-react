@@ -58,32 +58,37 @@ class BookmarkForm extends React.Component {
 
   render() {
     return (
-      <div>
-        {this.state.error && <p>{this.state.error}</p> }
-        <form onSubmit={this.onSubmit}>
+      <div className="center-container">
+        {this.state.error && <p>{this.state.error}</p>}
+        <form onSubmit={this.onSubmit} className="form">
           <input
+            className="text-input"
             type="text"
             placeholder="Name"
             value={this.state.name}
             onChange={this.onNameChange}
             autoFocus />
           <input
+            className="text-input"
             type="url"
             value={this.state.bookmark_link}
             onChange={this.onBookmarkLinkChange}
             placeholder="Bookmark Link" />
           <label htmlFor="bookmark_link">
             <input
+              className="checkbox"
+              id="bookmark_link"
               type="checkbox"
               onChange={this.onIsPublicChange}
               defaultChecked={this.state.is_public}
               value={this.state.bookmark_link} />
           Is bookmark public?</label>
           <textarea
+            className="textarea"
             placeholder="Add a description for your bookmark (optional)"
             value={this.state.description}
             onChange={this.onDescriptionChange}
-            rows="5">
+            rows="4">
           </textarea>
           <button>{this.props.action}</button>
         </form>

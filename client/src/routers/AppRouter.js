@@ -2,12 +2,14 @@ import React from 'react';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import Header from '../components/Header/Header';
-import BookmarksDashboard from '../components/BookmarskDashboard/BookmarksDashboard';
-import AddBookmark from '../components/AddBookmark/AddBookmark';
-import EditBookmark from '../components/EditBookmark/EditBookmark';
-import NotFoundPage from '../components/NotFoundPage/NotFoundPage';
-import UserForm from '../components/UserForm/UserForm';
+import Layout from '../components/Layout';
+import Header from '../components/Header';
+import BookmarksDashboard from '../components/BookmarksDashboard';
+import AddBookmark from '../components/AddBookmark';
+import EditBookmark from '../components/EditBookmark';
+import NotFoundPage from '../components/NotFoundPage';
+import UserForm from '../components/UserForm';
+
 
 import { onRefreshAuthenticate } from '../store/actions/users';
 
@@ -20,11 +22,12 @@ class AppRouter extends React.Component {
 
   render() {
 
+
     let routes = (
       <Switch>
         <Route path='/' component={BookmarksDashboard} exact={true} />
         <Route path='/auth' component={UserForm} />
-        <Redirect to='/' />
+        {/* <Redirect to='/' /> */}
         <Route component={NotFoundPage} />
       </Switch>
 
@@ -36,7 +39,7 @@ class AppRouter extends React.Component {
           <Route path='/' component={BookmarksDashboard} exact={true} />
           <Route path='/create' component={AddBookmark} />
           <Route path='/edit/:id' component={EditBookmark} />
-          <Redirect to='/' />
+          {/* <Redirect to='/' /> */}
           <Route component={NotFoundPage} />
         </Switch>
       );
@@ -44,10 +47,10 @@ class AppRouter extends React.Component {
 
     return (
       <BrowserRouter>
-        <div>
-          <Header />
+        <Header />
+        <Layout>
           {routes}
-        </div>
+        </Layout>
       </BrowserRouter>
     );
   }

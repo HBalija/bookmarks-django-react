@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import BookmarkForm from '../BookmarkForm/BookmarkForm';
-import Spinner from '../Spinner/Spinner';
-import NotFoundPage from '../NotFoundPage/NotFoundPage';
-import axiosInstance from '../../axios';
-import { startRemoveBookmark, startEditBookmark } from '../../store/actions/bookmarks';
+import BookmarkForm from './BookmarkForm';
+import Spinner from './Spinner';
+import NotFoundPage from './NotFoundPage';
+import axiosInstance from '../axios';
+import { startRemoveBookmark, startEditBookmark } from '../store/actions/bookmarks';
 
 
 class EditBookmark extends React.Component {
@@ -44,13 +44,15 @@ class EditBookmark extends React.Component {
           }}
           bookmark={this.state.bookmark}
           action='Edit bookmark' />
-
-        <button
-          onClick={() => {
-            this.props.startRemoveBookmark(this.state.bookmark.id);
-            this.props.history.push('/');
-          }}>Remove
-        </button>
+        <div className="center-container">
+          <button
+            className="button"
+            onClick={() => {
+              this.props.startRemoveBookmark(this.state.bookmark.id);
+              this.props.history.push('/');
+            }}>Remove
+          </button>
+        </div>
       </div>
     );
 

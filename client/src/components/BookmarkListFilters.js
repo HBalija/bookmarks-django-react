@@ -1,21 +1,24 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { setTextFilter, showUser, showAll, showPublic } from '../../store/actions/filters';
+import { setTextFilter, showUser, showAll, showPublic } from '../store/actions/filters';
 
 
 const BookmarkListFilters = props => (
-  <div>
-    <label>
-      Search:
-      <input
-        type="text"
-        value={props.filters.text}
-        onChange={e => props.setTextFilter(e.target.value)} />
-    </label>
+  <div className="filters-space-content content-container-filters">
+    <div>
+      <label className="fake-button">Search:
+        <input
+          className="text-input"
+          type="text"
+          value={props.filters.text}
+          onChange={e => props.setTextFilter(e.target.value)} />
+      </label>
 
-    { props.isAuthenticated &&
+      { props.isAuthenticated &&
     <select
+      className="select"
       value={props.filters.show}
       onChange={e => {
         const data = e.target.value;
@@ -27,6 +30,11 @@ const BookmarkListFilters = props => (
       <option value="user">My</option>
       <option value="public">Public</option>
     </select>
+      }
+    </div>
+    {
+      props.isAuthenticated &&
+    <Link to="/create"><span className="button">New bookmark</span></Link>
     }
   </div>
 );
