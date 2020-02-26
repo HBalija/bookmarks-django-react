@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import BookmarkListItem from './BookmarkListItem';
 import getBookmarks from '../utils/getVisibleBookmarks';
-import { startSetBookmarks, startListLoading } from '../store/actions/bookmarks';
+import { startSetBookmarks } from '../store/actions/bookmarks';
 import Spinner from './Spinner';
 
 
@@ -42,8 +42,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    startSetBookmarks: () => dispatch(startSetBookmarks()),
-    startListLoading: () => dispatch(startListLoading())
+    startSetBookmarks: () => dispatch(startSetBookmarks())
   };
 };
 

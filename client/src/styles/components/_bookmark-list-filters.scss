@@ -1,15 +1,6 @@
-// .content-container-filters {
-//   margin: 0 10%;
-// }
-
 .filters-space-content {
   align-items: center;
   display: flex;
   justify-content: flex-end;
   margin: 2rem;
-}
-
-.button-new {
-  @extend .button;
-  color: $dark-blue;
 }

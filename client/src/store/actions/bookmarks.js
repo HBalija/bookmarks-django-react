@@ -78,11 +78,6 @@ export const startSetBookmarks = () => {
   };};
 
 
-// SET_LOADING
-
-export const startListLoading = () => ({ type: 'START_LIST_LOADING' });
-
-
 // ON_LOGOUT_SET
 
 export const onLogoutSetBookmarks = () => ({ type: 'ON_LOGOUT_SET' });

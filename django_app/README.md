@@ -28,8 +28,6 @@ To view admin page, point your browser to:
 
 ### Testing
 
-Commands applied from root folder.
-
 Run tests:
 
     make test

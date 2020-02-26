@@ -1,5 +1,5 @@
 .form {
-  margin-top: 3rem;
+  margin: 3rem auto 0 auto;
   width: 60vh;
   display: flex;
   flex-direction: column;
@@ -17,5 +17,4 @@
     > * {
     margin-bottom: $m-size;
   }
-
 }

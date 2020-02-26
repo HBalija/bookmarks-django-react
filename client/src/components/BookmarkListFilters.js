@@ -6,7 +6,7 @@ import { setTextFilter, showUser, showAll, showPublic } from '../store/actions/f
 
 
 const BookmarkListFilters = props => (
-  <div className="filters-space-content content-container-filters">
+  <div className="filters-space-content">
     <div>
       <label className="fake-button">Search:
         <input

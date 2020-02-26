@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { startAuthenticate, onLoadAuthenticate } from '../store/actions/users';
-import { startSetBookmarks, startListLoading } from '../store/actions/bookmarks';
+import { startAuthenticate, onRegister } from '../store/actions/users';
+import { startSetBookmarks } from '../store/actions/bookmarks';
 // import axiosInstance from '../../axios';
 
 class UserForm extends React.Component {
@@ -10,7 +10,7 @@ class UserForm extends React.Component {
     error: '',
     username: '',
     password: '',
-    action: 'Sign up',
+    action: 'Sign in',
   }
 
   onUsernameChange = e => {
@@ -31,31 +31,17 @@ class UserForm extends React.Component {
     } else {
       this.setState(() => ({ error: '' }));
 
-      // submit the form (logic is in add / edit bookmark)
-
       const authData = {
         username: this.state.username,
         password: this.state.password
       };
 
-      // axiosInstance.post('/api/token/obtain/', authData)
-      //   .then(response => {
-
-      //     const data = {
-      //       username: authData.username,
-      //       isAuthenticated: !!response.data.access,
-      //       accessToken: response.data.access,
-      //       refreshToken: response.data.refresh,
-      //     };
-
-      //     localStorage.setItem('bookmarksData', JSON.stringify(data));
-
-      //     this.props.onLoadAuthenticate(data);
-
-      //   });
-      this.props.startAuthenticate(authData);
-      this.props.startListLoading();
-      this.props.history.push('/');
+      if (this.state.action === 'Sign in') {
+        this.props.startAuthenticate(authData);
+        this.props.history.push('/');
+      } else if (this.state.action === 'Sign up') {
+        this.props.onRegister(authData);
+      }
     }
   }
   onActionChange = () => {
@@ -92,8 +78,7 @@ class UserForm extends React.Component {
             <p
               onClick={this.onActionChange}
               className="signin-switch">
-          Go to {this.state.action === 'Sign up' ? ' Sign in' : ' Sign up' }
-
+              Go to {this.state.action === 'Sign up' ? ' Sign in' : ' Sign up' }
             </p>
           </form>
         </div>
@@ -113,9 +98,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     startAuthenticate: data => dispatch(startAuthenticate(data)),
-    onLoadAuthenticate: data => dispatch(onLoadAuthenticate(data)),
     startSetBookmarks: () => dispatch(startSetBookmarks()),
-    startListLoading: () => dispatch(startListLoading())
+    onRegister: data => dispatch(onRegister(data))
   };
 };
 
