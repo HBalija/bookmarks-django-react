@@ -1,0 +1,38 @@
+.bookmark-modal {
+  background-color: $light-grey;
+  border: 1px solid $black;
+  box-shadow: 1px 1px 1px black;
+  box-sizing: border-box;
+  left: 15%;
+  padding: 16px;
+  position: fixed;
+  top: 30%;
+  transition: all 0.3s ease-out;
+  width: 70%;
+  word-break: break-all;
+  z-index: 500;
+}
+
+@media (min-width: 600px) {
+  .bookmark-modal {
+    left: calc(50% - 250px);
+    width: 500px;
+  }
+}
+
+.modal-button-container {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+  width: 100%;
+}
+
+.modal-title {
+  text-align: center;
+
+  a {
+    color: $dark-blue;
+    text-decoration: none;
+  }
+}

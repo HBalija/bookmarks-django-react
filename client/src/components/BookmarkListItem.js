@@ -3,8 +3,9 @@ import { connect } from 'react-redux';
 
 
 const BookmarkListItem = props => (
-  <article className="bookmark">
-
+  <article
+    onClick={() => props.clicked(props.id)}
+    className="bookmark">
     <h3>{props.name}</h3>
     <p
       className="space-content">

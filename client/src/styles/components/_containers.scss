@@ -1,0 +1,25 @@
+.layout-container {
+  padding: $xl-size $m-size;
+}
+
+.backdrop-container {
+  background-color: rgba(0, 0, 0, 0.5);
+  height: 100%;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+}
+
+.center-container {
+  display: flex;
+  flex-flow: row wrap;
+  margin: auto;
+  width: 90%;
+}
+
+.delete-bookmark-container {
+  @extend .center-container;
+  justify-content: center;
+}

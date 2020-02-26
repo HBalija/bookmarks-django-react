@@ -1,11 +1,12 @@
 @import './variables';
-@import './inputs-buttons';
 
-@import './form';
-
+@import './components//buttons';
+@import './components/containers';
+@import './components/form';
+@import './components//inputs';
 @import './components/layout';
 @import './components/spinner';
+
 @import './components/bookmark-list-item';
-@import './components/bookmark-list';
-@import './components/bookmark-list-filters';
-@import './components/_header';
+@import './components/header';
+@import './components/bookmark-modal';

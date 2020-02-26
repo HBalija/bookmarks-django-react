@@ -1,31 +1,36 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import { logout } from '../store/actions/users';
 import { onLogoutSetBookmarks } from '../store/actions/bookmarks';
+import BookmarkListFilters from './BookmarkListFilters';
 
 const Header =  props => {
   return (
     <header className="header">
-      <div className="content-container">
+      <div className="header-content-container">
         <div className="space-content">
-          <NavLink
-            to="/"
-            activeClassName="is-active"
-            exact={true}>
-            <h2 className="title">Bookmarks</h2>
-          </NavLink>
-          { (!props.isAuthenticated && props.location.pathname !== '/auth') &&
-            <NavLink
-              to="/auth"
-              activeClassName="is-active"><span className="button-header-login">Log in</span>
-            </NavLink>
+          <div className="filters-container">
+            <Link
+              to="/">
+              <h2 className="title">Bookmarks</h2>
+            </Link>
+            { props.location.pathname === '/' && <BookmarkListFilters />  }
+          </div>
+          {
+            (!props.isAuthenticated && props.location.pathname !== '/auth') &&
+              <Link
+                to="/auth"><span className="button-header-login">Log in</span>
+              </Link>
           }
-          { props.isAuthenticated  &&
-            <div>
+          {
+            props.isAuthenticated  &&
+            <div className="header-right-group">
               <span className="user">Hello, {props.username}</span>
+              {props.location.pathname === '/' &&
+              <Link to="/create"><span className="button-header-login">New bookmark</span></Link> }
               <span
                 className="button-header-login"
                 onClick={() => {
@@ -34,7 +39,6 @@ const Header =  props => {
                 }}>Logout</span>
             </div>
           }
-
         </div>
       </div>
     </header>

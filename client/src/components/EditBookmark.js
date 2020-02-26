@@ -44,7 +44,7 @@ class EditBookmark extends React.Component {
           }}
           bookmark={this.state.bookmark}
           action='Edit bookmark' />
-        <div className="center-container">
+        <div className="delete-bookmark-container">
           <button
             className="button"
             onClick={() => {

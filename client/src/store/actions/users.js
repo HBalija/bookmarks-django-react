@@ -22,6 +22,8 @@ export const onLoadAuthenticate = data => {
 };
 
 
+// helper function for retrieving token on LOGIN and REGISTER
+
 const obtainToken = (dispatch, authData) => {
   axiosInstance.post('/api/token/obtain/', authData)
     .then(response => {
@@ -38,9 +40,10 @@ const obtainToken = (dispatch, authData) => {
     });
 };
 
+
 // LOGIN
 
-export const startAuthenticate = authData => {
+export const startLogin = authData => {
   return dispatch => {
     obtainToken(dispatch, authData);
   };
@@ -49,7 +52,7 @@ export const startAuthenticate = authData => {
 
 // REGISTER
 
-export const onRegister = authData => {
+export const startRegister = authData => {
   return dispatch => {
     axiosInstance.post('/register/', authData)
       .then(response  => {

@@ -1,0 +1,24 @@
+.text-input {
+  border: 1px solid #cacccd;
+  padding: 10px;
+  font-size: $font-size-x-small;
+  font-family: monospace;
+}
+
+.textarea {
+  @extend .text-input;
+  height: 5rem;
+}
+
+.select {
+  @extend .text-input;
+  margin-right: 1rem;
+}
+
+.checkbox-label {
+  background-color: #fff;
+  color: grey;
+  padding: 6px;
+  font-family: monospace;
+
+}

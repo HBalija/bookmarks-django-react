@@ -1,4 +1,7 @@
-## Frontend Quickstart
+## Frontend Quickstart (development only)
+
+
+From the `client` folder:
 
 Install dependencies:
 

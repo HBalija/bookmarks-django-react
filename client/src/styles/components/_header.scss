@@ -3,7 +3,8 @@
   position: fixed;
   width: 100%;
   z-index:1000;
-  padding: 10px 0;
+  padding: $s-size 0;
+  opacity: 0.9;
 }
 
 .space-content {
@@ -15,13 +16,32 @@
 .title {
   color: $off-white;
   text-decoration: none;
+  margin-right: 2rem;
 }
 
-.content-container {
-  margin: 0 4%;
+.header-content-container {
+  margin: 0 2%;
 }
 
 .user {
   color:$off-white;
   margin-right: 20px;
+}
+
+@media (max-width: 600px) {
+  .header-right-group {
+    display: grid;
+  }
+}
+
+.filters-container {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+@media (max-width: 850px) {
+  .filters-container {
+    display: grid;
+  }
 }

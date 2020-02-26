@@ -59,7 +59,7 @@ class BookmarkForm extends React.Component {
   render() {
     return (
       <div className="center-container">
-        {this.state.error && <p>{this.state.error}</p>}
+        {this.state.error && <p className="error-message">{this.state.error}</p>}
         <form onSubmit={this.onSubmit} className="form">
           <input
             className="text-input"
@@ -74,7 +74,9 @@ class BookmarkForm extends React.Component {
             value={this.state.bookmark_link}
             onChange={this.onBookmarkLinkChange}
             placeholder="Bookmark Link" />
-          <label htmlFor="bookmark_link">
+          <label
+            className="checkbox-label"
+            htmlFor="bookmark_link">
             <input
               className="checkbox"
               id="bookmark_link"

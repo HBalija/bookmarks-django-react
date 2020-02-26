@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { startAuthenticate, onRegister } from '../store/actions/users';
+import { startLogin, startRegister } from '../store/actions/users';
 import { startSetBookmarks } from '../store/actions/bookmarks';
 // import axiosInstance from '../../axios';
 
@@ -27,7 +27,7 @@ class UserForm extends React.Component {
     e.preventDefault();
 
     if (!this.state.username || !this.state.password) {
-      this.setState(() => ({ error: 'Please provide username and password' }));
+      this.setState(() => ({ error: 'Please provide username and password.' }));
     } else {
       this.setState(() => ({ error: '' }));
 
@@ -37,11 +37,12 @@ class UserForm extends React.Component {
       };
 
       if (this.state.action === 'Sign in') {
-        this.props.startAuthenticate(authData);
-        this.props.history.push('/');
+        this.props.startLogin(authData);
       } else if (this.state.action === 'Sign up') {
-        this.props.onRegister(authData);
+        this.props.startRegister(authData);
       }
+      this.props.history.push('/');
+
     }
   }
   onActionChange = () => {
@@ -57,7 +58,7 @@ class UserForm extends React.Component {
 
     return (
       <div>
-        {this.state.error && <p>{this.state.error}</p> }
+        {this.state.error && <p className="error-message">{this.state.error}</p> }
         <div className="center-container">
           <form onSubmit={this.onSubmit} className="form" >
             <input
@@ -82,9 +83,7 @@ class UserForm extends React.Component {
             </p>
           </form>
         </div>
-
       </div>
-
     );
   }
 }
@@ -97,9 +96,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    startAuthenticate: data => dispatch(startAuthenticate(data)),
+    startLogin: data => dispatch(startLogin(data)),
     startSetBookmarks: () => dispatch(startSetBookmarks()),
-    onRegister: data => dispatch(onRegister(data))
+    startRegister: data => dispatch(startRegister(data))
   };
 };
 
