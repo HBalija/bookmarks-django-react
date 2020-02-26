@@ -20,7 +20,6 @@ class BookmarkViewSet(viewsets.ModelViewSet):
         if self.request.user.is_authenticated:
             qs = qs | Bookmark.objects.filter(user=self.request.user)
         return qs
-        return Bookmark.objects.all()
 
 
 class UserRegisterView(generics.CreateAPIView):

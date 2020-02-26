@@ -2,6 +2,9 @@
 
 Create Python3 virtual environment
 
+
+From the `django_app` folder:
+
 Install requirements:
 
     pip install -r ./requirements.txt
