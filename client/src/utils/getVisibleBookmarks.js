@@ -4,12 +4,8 @@ const getVisibleBookmarks = (bookmarks, { text, show }, user) => {
     return bookmark.name.toLowerCase().includes(text.toLowerCase());
   });
 
-  if (show === 'public') {
-    return textFiltered.filter(bookmark => bookmark.is_public);
-  }
-  if (show === 'user') {
-    return textFiltered.filter(bookmark => bookmark.user.username === user);
-  }
+  if (show === 'public') return textFiltered.filter(bookmark => bookmark.is_public);
+  if (show === 'user') return textFiltered.filter(bookmark => bookmark.user.username === user);
 
   return textFiltered;
 };

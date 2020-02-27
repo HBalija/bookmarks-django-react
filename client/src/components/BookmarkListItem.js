@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 
 
 const BookmarkListItem = props => (
@@ -14,10 +13,4 @@ const BookmarkListItem = props => (
   </article>
 );
 
-const mapStateToProps = state => {
-  return {
-    currentUser: state.users.username
-  };
-};
-
-export default connect(mapStateToProps)(BookmarkListItem);
+export default BookmarkListItem;

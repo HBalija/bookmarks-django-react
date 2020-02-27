@@ -28,6 +28,7 @@ class BookmarkList extends React.Component {
 
   componentDidMount() {
     // required check for editing and deleting bookmarks (setting state in store)
+    // should be updated with context
     if (this.props.listLoading) this.props.startSetBookmarks();
   }
 

@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { startLogin, startRegister } from '../store/actions/users';
-import { startSetBookmarks } from '../store/actions/bookmarks';
 
 
 class UserForm extends React.Component {
@@ -57,6 +56,7 @@ class UserForm extends React.Component {
 
     }
   }
+
   onActionChange = () => {
     this.setState(prevState => {
       let action = prevState.action;
@@ -86,7 +86,6 @@ class UserForm extends React.Component {
               value={this.state.password}
               placeholder="password"
               onChange={this.onPasswordChange} />
-
             <button>{this.state.action}</button>
             <p
               onClick={this.onActionChange}
@@ -100,18 +99,11 @@ class UserForm extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    users: state.users
-  };
-};
-
 const mapDispatchToProps = dispatch => {
   return {
     startLogin: data => dispatch(startLogin(data)),
-    startSetBookmarks: () => dispatch(startSetBookmarks()),
     startRegister: data => dispatch(startRegister(data))
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserForm);
+export default connect(null, mapDispatchToProps)(UserForm);

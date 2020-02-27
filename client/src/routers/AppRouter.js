@@ -21,6 +21,7 @@ class AppRouter extends React.Component {
   }
 
   render() {
+
     let routes = (
       <Switch>
         <Route path='/' component={BookmarkList} exact={true} />
@@ -28,7 +29,6 @@ class AppRouter extends React.Component {
         {/* <Redirect to='/' /> */}
         <Route component={NotFoundPage} />
       </Switch>
-
     );
 
     if (this.props.isAuthenticated) {

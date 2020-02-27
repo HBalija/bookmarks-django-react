@@ -8,7 +8,6 @@ const bookmarksReducer = (state = defaultState, action) => {
   switch (action.type) {
 
   case 'START_LIST_LOADING':
-    console.log('SEE ABOUT THIS');
     return { ...state, listLoading: true };
 
   case 'SET_BOOKMARKS':

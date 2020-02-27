@@ -21,16 +21,26 @@ class EditBookmark extends React.Component {
     };
   }
 
+  onRemoveBookmark = () => {
+    this.props.startRemoveBookmark(this.state.bookmark.id);
+    this.props.history.push('/');
+  }
+
+  onEditBookmark = bookmark => {
+    this.props.startEditBookmark(this.state.bookmark.id, bookmark);
+    this.props.history.push('/');
+  }
+
   componentDidMount() {
     if (this.state.loading) {
       axiosInstance.get(`/bookmarks/${this.props.match.params.id}/`)
         .then(response =>{
-          this.setState(() => ({ bookmark: response.data,  loading: false }));
+          this.setState(() => ({ bookmark: response.data, loading: false }));
         })
         .catch(error => {
           this.setState(() => ({ notFound: true }));
           throw(error);
-        }) ;
+        });
     }
   }
 
@@ -38,19 +48,13 @@ class EditBookmark extends React.Component {
     let jsx = (
       <div>
         <BookmarkForm
-          onSubmit={bk => {
-            this.props.startEditBookmark(this.state.bookmark.id, bk);
-            this.props.history.push('/');
-          }}
+          onSubmit={bk => this.onEditBookmark(bk)}
           bookmark={this.state.bookmark}
           action='Edit bookmark' />
         <div className="delete-bookmark-container">
           <button
             className="button"
-            onClick={() => {
-              this.props.startRemoveBookmark(this.state.bookmark.id);
-              this.props.history.push('/');
-            }}>Remove
+            onClick={this.removeBookmark}>Remove
           </button>
         </div>
       </div>
