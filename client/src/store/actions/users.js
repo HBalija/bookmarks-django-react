@@ -24,20 +24,18 @@ export const onLoadAuthenticate = data => {
 
 // helper function for retrieving token on LOGIN and REGISTER
 
-const obtainToken = (dispatch, authData) => {
-  axiosInstance.post('/api/token/obtain/', authData)
-    .then(response => {
+const obtainToken = async (dispatch, authData) => {
+  const response = await axiosInstance.post('/api/token/obtain/', authData);
 
-      const data = {
-        username: authData.username,
-        isAuthenticated: !!response.data.access,
-        accessToken: response.data.access,
-        refreshToken: response.data.refresh,
-      };
+  const data = {
+    username: authData.username,
+    isAuthenticated: !!response.data.access,
+    accessToken: response.data.access,
+    refreshToken: response.data.refresh,
+  };
 
-      dispatch(onLoadAuthenticate(data));
-      localStorage.setItem('bookmarksData', JSON.stringify(data));
-    });
+  dispatch(onLoadAuthenticate(data));
+  localStorage.setItem('bookmarksData', JSON.stringify(data));
 };
 
 
@@ -45,7 +43,7 @@ const obtainToken = (dispatch, authData) => {
 
 export const startLogin = authData => {
   return dispatch => {
-    obtainToken(dispatch, authData);
+    return obtainToken(dispatch, authData);
   };
 };
 
@@ -53,13 +51,9 @@ export const startLogin = authData => {
 // REGISTER
 
 export const startRegister = authData => {
-  return dispatch => {
-    axiosInstance.post('/register/', authData)
-      .then(response  => {
-        return authData;
-      }).then(data => {
-        obtainToken(dispatch, data);
-      });
+  return async dispatch => {
+    await axiosInstance.post('/register/', authData);
+    return obtainToken(dispatch, authData);
   };
 };
 

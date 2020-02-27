@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { startLogin, startRegister } from '../store/actions/users';
 import { startSetBookmarks } from '../store/actions/bookmarks';
-// import axiosInstance from '../../axios';
+
 
 class UserForm extends React.Component {
 
@@ -27,7 +27,7 @@ class UserForm extends React.Component {
     e.preventDefault();
 
     if (!this.state.username || !this.state.password) {
-      this.setState(() => ({ error: 'Please provide username and password.' }));
+      this.setState(() => ({ error: 'Please provide username and password' }));
     } else {
       this.setState(() => ({ error: '' }));
 
@@ -37,11 +37,23 @@ class UserForm extends React.Component {
       };
 
       if (this.state.action === 'Sign in') {
-        this.props.startLogin(authData);
+        this.props.startLogin(authData)
+          .then(() => {
+            this.props.history.push('/');
+          }).catch(error => {
+            // console.log(error.response.status === 401);
+            this.setState(() => ({ error: error.response.data.detail }));
+          });
       } else if (this.state.action === 'Sign up') {
-        this.props.startRegister(authData);
+        this.props.startRegister(authData)
+          .then(() => {
+            this.props.history.push('/');
+          })
+          .catch(error => {
+            // console.log(error.response.status === 400);
+            this.setState(() => ({ error: error.response.data.username[0] }));
+          });
       }
-      this.props.history.push('/');
 
     }
   }
