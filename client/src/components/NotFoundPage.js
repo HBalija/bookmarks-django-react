@@ -3,5 +3,5 @@ import { Link } from 'react-router-dom';
 
 
 export default () => (
-  <div>404! <Link to="/">Go home</Link></div>
+  <div>Nothing here, <Link to="/"><span className="title">Go home?</span></Link></div>
 );

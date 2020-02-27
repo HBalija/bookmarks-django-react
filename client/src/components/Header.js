@@ -15,7 +15,7 @@ const Header =  props => {
           <div className="filters-container">
             <Link
               to="/">
-              <h2 className="title">Bookmarks</h2>
+              <h1 className="title">Bookmarks</h1>
             </Link>
             { props.location.pathname === '/' && <BookmarkListFilters />  }
           </div>

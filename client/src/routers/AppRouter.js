@@ -21,8 +21,6 @@ class AppRouter extends React.Component {
   }
 
   render() {
-
-
     let routes = (
       <Switch>
         <Route path='/' component={BookmarkList} exact={true} />

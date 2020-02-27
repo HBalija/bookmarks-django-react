@@ -84,7 +84,8 @@ class BookmarkForm extends React.Component {
               onChange={this.onIsPublicChange}
               defaultChecked={this.state.is_public}
               value={this.state.bookmark_link} />
-          Is bookmark public?</label>
+            <span>Is bookmark public?</span>
+          </label>
           <textarea
             className="textarea"
             placeholder="Add a description for your bookmark (optional)"

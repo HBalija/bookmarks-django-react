@@ -33,7 +33,7 @@ class BookmarkList extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="list-container">
         <h2 className="list-header">Share your WWW ideas ...</h2>
         <div
           className="center-container">
