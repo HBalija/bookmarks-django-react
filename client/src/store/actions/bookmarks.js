@@ -35,9 +35,10 @@ export const removeBookmark = id => ({
   id
 });
 
-export const startRemoveBookmark = id => {
+export const startRemoveBookmark = (id, token) => {
   return dispatch => {
-    axiosInstance.delete(`/bookmarks/${id}/`);
+    axiosInstance.delete(`/bookmarks/${id}/`,
+      { headers: { Authorization: token ? `JWT ${token}` : '' } });
     dispatch(removeBookmark(id));
   };
 };
@@ -51,10 +52,11 @@ export const editBookmark = (id, updates) => ({
   updates
 });
 
-export const startEditBookmark = (id, updates) => {
+export const startEditBookmark = (id, updates, token) => {
   return dispatch => {
     dispatch(editBookmark(id, updates));
-    axiosInstance.patch(`/bookmarks/${id}/`, updates);
+    axiosInstance.patch(`/bookmarks/${id}/`, updates,
+      { headers: { Authorization: token ? `JWT ${token}` : '' } });
   };
 };
 
@@ -66,9 +68,9 @@ export const setBookmarks = bookmarks => ({
   bookmarks
 });
 
-export const startSetBookmarks = () => {
+export const startSetBookmarks = token => {
   return dispatch => {
-    axiosInstance.get('/bookmarks/')
+    axiosInstance.get('/bookmarks/', { headers: { Authorization: token ? `JWT ${token}` : '' } })
       .then(response => {
         dispatch(setBookmarks(response.data));
       })

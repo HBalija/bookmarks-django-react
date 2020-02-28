@@ -19,7 +19,7 @@ const AppRouter = props => {
 
   useEffect(() => {
     props.onRefreshAuthenticate();
-    props.startSetBookmarks();
+    props.startSetBookmarks(props.token);
   }, [props]);
 
   let routes = (
@@ -56,7 +56,8 @@ const AppRouter = props => {
 
 const mapStateToProps = state => {
   return {
-    isAuthenticated: state.users.isAuthenticated
+    isAuthenticated: state.users.isAuthenticated,
+    token: state.users.accessToken
   };
 
 };
@@ -64,7 +65,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     onRefreshAuthenticate: () => dispatch(onRefreshAuthenticate()),
-    startSetBookmarks: () => dispatch(startSetBookmarks())
+    startSetBookmarks: token => dispatch(startSetBookmarks(token))
   };
 };
 

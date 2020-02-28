@@ -34,7 +34,7 @@ const EditBookmark = props => {
     <>
       <BookmarkForm
         onSubmit={bk => {
-          props.startEditBookmark(bookmark.id, bk);
+          props.startEditBookmark(bookmark.id, bk, props.token);
           props.history.push('/');
         }}
         bookmark={bookmark}
@@ -43,7 +43,7 @@ const EditBookmark = props => {
         <button
           className="button"
           onClick={() => {
-            props.startRemoveBookmark(bookmark.id);
+            props.startRemoveBookmark(bookmark.id, props.token);
             props.history.push('/');
           }}>Remove
         </button>
@@ -62,13 +62,14 @@ const mapStateToProps = (state, ownProps) => {
   return {
     bookmark: state.bookmarks.find(
       bookmark => bookmark.id === parseInt(ownProps.match.params.id)),
+    token: state.users.accessToken
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    startEditBookmark: (id, updates) => dispatch(startEditBookmark(id, updates)),
-    startRemoveBookmark: id => dispatch(startRemoveBookmark(id)),
+    startEditBookmark: (id, updates, token) => dispatch(startEditBookmark(id, updates, token)),
+    startRemoveBookmark: (id, token) => dispatch(startRemoveBookmark(id, token)),
   };
 };
 

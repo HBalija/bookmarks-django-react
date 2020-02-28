@@ -4,7 +4,7 @@
 
 To do:
 
-    - app loading upon receiving user context
+    - refresh token logic
     - tests
 
 ### Setup (development only)
