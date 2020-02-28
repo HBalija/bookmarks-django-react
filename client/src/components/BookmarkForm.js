@@ -58,7 +58,7 @@ class BookmarkForm extends React.Component {
 
   render() {
     return (
-      <div>
+      <>
         {this.state.error && <p className="error-message">{this.state.error}</p>}
         <div className="center-container">
           <form onSubmit={this.onSubmit} className="form">
@@ -97,7 +97,7 @@ class BookmarkForm extends React.Component {
             <button>{this.props.action}</button>
           </form>
         </div>
-      </div>
+      </>
     );
   }
 }

@@ -5,7 +5,7 @@ import { setTextFilter, showUser, showAll, showPublic } from '../store/actions/f
 
 
 const BookmarkListFilters = props => (
-  <div>
+  <>
     <label className="fake-button">Search:
       <input
         className="text-input"
@@ -29,7 +29,7 @@ const BookmarkListFilters = props => (
       <option value="public">Public</option>
     </select>
     }
-  </div>
+  </>
 );
 
 const mapStateToProps = state => {

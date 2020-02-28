@@ -31,7 +31,7 @@ const EditBookmark = props => {
   });
 
   let jsx = (
-    <div>
+    <>
       <BookmarkForm
         onSubmit={bk => {
           props.startEditBookmark(bookmark.id, bk);
@@ -48,7 +48,7 @@ const EditBookmark = props => {
           }}>Remove
         </button>
       </div>
-    </div>
+    </>
   );
 
   if (notFound) jsx = <NotFoundPage />;

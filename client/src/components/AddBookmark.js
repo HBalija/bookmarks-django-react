@@ -6,13 +6,11 @@ import BookmarkForm from './BookmarkForm';
 
 
 const AddBookmark = props => (
-  <div>
-    <BookmarkForm onSubmit={bookmark => {
-      props.startAddBookmark(bookmark);
-      props.history.push('/');
-    }}
-    action='Add bookmark' />
-  </div>
+  <BookmarkForm onSubmit={bookmark => {
+    props.startAddBookmark(bookmark);
+    props.history.push('/');
+  }}
+  action='Add bookmark' />
 );
 
 const mapDispatchToProps = dispatch => {
