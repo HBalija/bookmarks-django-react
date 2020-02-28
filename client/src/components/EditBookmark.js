@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import BookmarkForm from './BookmarkForm';
@@ -8,64 +8,55 @@ import axiosInstance from '../axios';
 import { startRemoveBookmark, startEditBookmark } from '../store/actions/bookmarks';
 
 
-class EditBookmark extends React.Component {
+const EditBookmark = props => {
 
 
-  constructor(props) {
-    super(props);
+  const [bookmark, setBookmark] = useState(props.bookmark);
+  const [notFound, setNotFound] = useState(false);
+  const [loading, setLoading] = useState(!props.bookmark);
 
-    this.state = {
-      bookmark: this.props.bookmark,
-      notFound : false,
-      loading: !this.props.bookmark
-    };
-  }
 
-  onRemoveBookmark = () => {
-    this.props.startRemoveBookmark(this.state.bookmark.id);
-    this.props.history.push('/');
-  }
-
-  onEditBookmark = bookmark => {
-    this.props.startEditBookmark(this.state.bookmark.id, bookmark);
-    this.props.history.push('/');
-  }
-
-  componentDidMount() {
-    if (this.state.loading) {
-      axiosInstance.get(`/bookmarks/${this.props.match.params.id}/`)
+  useEffect(() => {
+    if (loading) {
+      axiosInstance.get(`/bookmarks/${props.match.params.id}/`)
         .then(response =>{
-          this.setState(() => ({ bookmark: response.data, loading: false }));
+          setBookmark(response.data);
+          setLoading(false);
         })
         .catch(error => {
-          this.setState(() => ({ notFound: true }));
+          setNotFound(true);
           throw(error);
         });
     }
-  }
+  });
 
-  render () {
-    let jsx = (
-      <div>
-        <BookmarkForm
-          onSubmit={bk => this.onEditBookmark(bk)}
-          bookmark={this.state.bookmark}
-          action='Edit bookmark' />
-        <div className="delete-bookmark-container">
-          <button
-            className="button"
-            onClick={this.removeBookmark}>Remove
-          </button>
-        </div>
+  let jsx = (
+    <div>
+      <BookmarkForm
+        onSubmit={bk => {
+          props.startEditBookmark(bookmark.id, bk);
+          props.history.push('/');
+        }}
+        bookmark={bookmark}
+        action='Edit bookmark' />
+      <div className="delete-bookmark-container">
+        <button
+          className="button"
+          onClick={() => {
+            props.startRemoveBookmark(bookmark.id);
+            props.history.push('/');
+          }}>Remove
+        </button>
       </div>
-    );
+    </div>
+  );
 
-    if (this.state.notFound) jsx = <NotFoundPage />;
-    else if (this.state.loading) jsx = <Spinner />;
+  if (notFound) jsx = <NotFoundPage />;
+  else if (loading) jsx = <Spinner />;
 
-    return jsx;
-  }
-}
+  return jsx;
+
+};
 
 const mapStateToProps = (state, ownProps) => {
   return {

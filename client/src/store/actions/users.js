@@ -4,9 +4,7 @@ import axiosInstance from '../../axios';
 // AUTHENTICATE
 
 export const onRefreshAuthenticate = () => {
-
   const data = JSON.parse(localStorage.getItem('bookmarksData'));
-
   return {
     type: 'AUTHENTICATE',
     data
@@ -18,7 +16,6 @@ export const onLoadAuthenticate = data => {
     type: 'AUTHENTICATE',
     data
   };
-
 };
 
 
