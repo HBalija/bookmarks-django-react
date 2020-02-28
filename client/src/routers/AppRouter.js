@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 
@@ -12,47 +12,46 @@ import UserForm from '../components/UserForm';
 
 
 import { onRefreshAuthenticate } from '../store/actions/users';
+import { startSetBookmarks } from '../store/actions/bookmarks';
 
 
-class AppRouter extends React.Component {
+const AppRouter = props => {
 
-  componentDidMount() {
-    this.props.onRefreshAuthenticate();
-  }
+  useEffect(() => {
+    props.onRefreshAuthenticate();
+    props.startSetBookmarks();
+  }, [props]);
 
-  render() {
+  let routes = (
+    <Switch>
+      <Route path='/' component={BookmarkList} exact={true} />
+      <Route path='/auth' component={UserForm} />
+      {/* <Redirect to='/' /> */}
+      <Route component={NotFoundPage} />
+    </Switch>
+  );
 
-    let routes = (
+  if (props.isAuthenticated) {
+    routes = (
       <Switch>
         <Route path='/' component={BookmarkList} exact={true} />
-        <Route path='/auth' component={UserForm} />
+        <Route path='/create' component={AddBookmark} />
+        <Route path='/edit/:id' component={EditBookmark} />
         {/* <Redirect to='/' /> */}
         <Route component={NotFoundPage} />
       </Switch>
     );
-
-    if (this.props.isAuthenticated) {
-      routes = (
-        <Switch>
-          <Route path='/' component={BookmarkList} exact={true} />
-          <Route path='/create' component={AddBookmark} />
-          <Route path='/edit/:id' component={EditBookmark} />
-          {/* <Redirect to='/' /> */}
-          <Route component={NotFoundPage} />
-        </Switch>
-      );
-    }
-
-    return (
-      <BrowserRouter>
-        <Header />
-        <Layout>
-          {routes}
-        </Layout>
-      </BrowserRouter>
-    );
   }
-}
+
+  return (
+    <BrowserRouter>
+      <Header />
+      <Layout>
+        {routes}
+      </Layout>
+    </BrowserRouter>
+  );
+};
 
 
 const mapStateToProps = state => {
@@ -65,6 +64,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     onRefreshAuthenticate: () => dispatch(onRefreshAuthenticate()),
+    startSetBookmarks: () => dispatch(startSetBookmarks())
   };
 };
 

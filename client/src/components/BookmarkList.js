@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 
 import getBookmarks from '../utils/getVisibleBookmarks';
-import { startSetBookmarks } from '../store/actions/bookmarks';
 
 import BookmarkListItem from './BookmarkListItem';
 import Spinner from './Spinner';
@@ -24,10 +23,6 @@ const BookmarkList = props => {
     onShowModal(false);
     onShowBookmark('');
   };
-
-  useEffect(() => {
-    if (props.listLoading) props.startSetBookmarks();
-  });
 
   return (
     <div className="list-container">
@@ -58,16 +53,10 @@ const BookmarkList = props => {
 
 const mapStateToProps = state => {
   return {
-    bookmarks: getBookmarks(state.bookmarks.bookmarks, state.filters, state.users.username),
+    bookmarks: getBookmarks(state.bookmarks, state.filters, state.users.username),
     listLoading: state.bookmarks.listLoading,
     user: state.users
   };
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    startSetBookmarks: () => dispatch(startSetBookmarks())
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(BookmarkList);
+export default connect(mapStateToProps)(BookmarkList);
