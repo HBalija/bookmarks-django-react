@@ -7,16 +7,22 @@ import BookmarkForm from './BookmarkForm';
 
 const AddBookmark = props => (
   <BookmarkForm onSubmit={bookmark => {
-    props.startAddBookmark(bookmark);
+    props.startAddBookmark(props.token, bookmark);
     props.history.push('/');
   }}
   action='Add bookmark' />
 );
 
-const mapDispatchToProps = dispatch => {
+const mapStateToProps = state => {
   return {
-    startAddBookmark: bookmark => dispatch(startAddBookmark(bookmark))
+    token: state.users.accessToken
   };
 };
 
-export default connect(null, mapDispatchToProps)(AddBookmark);
+const mapDispatchToProps = dispatch => {
+  return {
+    startAddBookmark: (token, bookmark) => dispatch(startAddBookmark(token, bookmark))
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddBookmark);

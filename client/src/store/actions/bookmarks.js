@@ -20,9 +20,11 @@ export const addBookmark = (
   }
 });
 
-export const startAddBookmark = data => {
+export const startAddBookmark = (token, data) => {
+
   return dispatch => {
-    axiosInstance.post('/bookmarks/', data);
+    axiosInstance.post(
+      '/bookmarks/', data, { headers: { Authorization: token ? `JWT ${token}` : '' } });
     dispatch(addBookmark(data));
   };
 };
