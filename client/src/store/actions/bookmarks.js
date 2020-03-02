@@ -75,6 +75,7 @@ export const startSetBookmarks = token => {
     axiosInstance.get('/bookmarks/', { headers: { Authorization: token ? `JWT ${token}` : '' } })
       .then(response => {
         dispatch(setBookmarks(response.data));
+        dispatch(stopListLoading());
       })
       .catch(error =>{
         throw(error);
@@ -85,3 +86,7 @@ export const startSetBookmarks = token => {
 // ON_LOGOUT_SET
 
 export const onLogoutSetBookmarks = () => ({ type: 'ON_LOGOUT_SET' });
+
+// STOP_LIST_LOADING
+
+export const stopListLoading = () => ({ type: 'STOP_LIST_LOADING' });

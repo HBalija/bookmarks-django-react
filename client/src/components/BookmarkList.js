@@ -53,7 +53,7 @@ const BookmarkList = props => {
 
 const mapStateToProps = state => {
   return {
-    bookmarks: getBookmarks(state.bookmarks, state.filters, state.users.username),
+    bookmarks: getBookmarks(state.bookmarks.bookmarks, state.filters, state.users.username),
     listLoading: state.bookmarks.listLoading,
     user: state.users
   };
