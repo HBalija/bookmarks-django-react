@@ -1,27 +1,31 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { startAddBookmark } from '../store/actions/bookmarks';
+import * as actions from '../store/actions/actionIndex';
 import BookmarkForm from './BookmarkForm';
 
 
-const AddBookmark = props => (
-  <BookmarkForm onSubmit={bookmark => {
-    props.startAddBookmark(props.token, bookmark);
+const AddBookmark = props => {
+
+  const addBookmarkHandler = bookmark => {
+    props.onStartAddBookmark(props.token, bookmark);
     props.history.push('/');
-  }}
-  action='Add bookmark' />
-);
+  };
+
+  return <BookmarkForm
+    onSubmit={bookmark => addBookmarkHandler(bookmark)}
+    action='Add bookmark' />;
+};
 
 const mapStateToProps = state => {
   return {
-    token: state.users.accessToken
+    token: state.auth.accessToken
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    startAddBookmark: (token, bookmark) => dispatch(startAddBookmark(token, bookmark))
+    onStartAddBookmark: (token, bookmark) => dispatch(actions.startAddBookmark(token, bookmark))
   };
 };
 

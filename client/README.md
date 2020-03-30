@@ -1,12 +1,5 @@
 ## Frontend Quickstart
 
-## Work in progress
-
-To do:
-
-    - refresh token logic
-    - tests
-
 ### Setup (development only)
 
 From the `client` folder:

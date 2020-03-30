@@ -11,22 +11,21 @@ import NotFoundPage from '../components/NotFoundPage';
 import UserForm from '../components/UserForm';
 
 
-import { onRefreshAuthenticate } from '../store/actions/users';
-import { startSetBookmarks } from '../store/actions/bookmarks';
+import { refreshAuthenticate } from '../store/actions/authActions';
+import { startSetBookmarks } from '../store/actions/bookmarkActions';
 
 
 const AppRouter = props => {
 
   useEffect(() => {
     props.onRefreshAuthenticate();
-    props.startSetBookmarks(props.token);
+    props.onStartSetBookmarks(props.token);
   }, [props]);
 
   let routes = (
     <Switch>
       <Route path='/' component={BookmarkList} exact={true} />
       <Route path='/auth' component={UserForm} />
-      {/* <Redirect to='/' /> */}
       <Route component={NotFoundPage} />
     </Switch>
   );
@@ -37,7 +36,6 @@ const AppRouter = props => {
         <Route path='/' component={BookmarkList} exact={true} />
         <Route path='/create' component={AddBookmark} />
         <Route path='/edit/:id' component={EditBookmark} />
-        {/* <Redirect to='/' /> */}
         <Route component={NotFoundPage} />
       </Switch>
     );
@@ -56,16 +54,16 @@ const AppRouter = props => {
 
 const mapStateToProps = state => {
   return {
-    isAuthenticated: state.users.isAuthenticated,
-    token: state.users.accessToken
+    isAuthenticated: state.auth.isAuthenticated,
+    token: state.auth.accessToken
   };
 
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    onRefreshAuthenticate: () => dispatch(onRefreshAuthenticate()),
-    startSetBookmarks: token => dispatch(startSetBookmarks(token))
+    onRefreshAuthenticate: () => dispatch(refreshAuthenticate()),
+    onStartSetBookmarks: token => dispatch(startSetBookmarks(token))
   };
 };
 

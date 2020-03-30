@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { startLogin, startRegister } from '../store/actions/users';
+import { startLogin, startRegister } from '../store/actions/authActions';
 
 
 class UserForm extends React.Component {
@@ -12,17 +12,17 @@ class UserForm extends React.Component {
     action: 'Sign in',
   }
 
-  onUsernameChange = e => {
+  usernameChangeHandler = e => {
     const username = e.target.value;
     this.setState(() => ({ username }));
   }
 
-  onPasswordChange = e => {
+  passwordChangeHandler = e => {
     const password = e.target.value;
     this.setState(() => ({ password }));
   }
 
-  onSubmit = e => {
+  submitHandler = e => {
     e.preventDefault();
 
     if (!this.state.username || !this.state.password) {
@@ -36,7 +36,7 @@ class UserForm extends React.Component {
       };
 
       if (this.state.action === 'Sign in') {
-        this.props.startLogin(authData)
+        this.props.onStartLogin(authData)
           .then(() => {
             this.props.history.push('/');
           }).catch(error => {
@@ -44,7 +44,7 @@ class UserForm extends React.Component {
             this.setState(() => ({ error: error.response.data.detail }));
           });
       } else if (this.state.action === 'Sign up') {
-        this.props.startRegister(authData)
+        this.props.onStartRegister(authData)
           .then(() => {
             this.props.history.push('/');
           })
@@ -57,7 +57,7 @@ class UserForm extends React.Component {
     }
   }
 
-  onActionChange = () => {
+  actionChangeHandler = () => {
     this.setState(prevState => {
       let action = prevState.action;
       if (prevState.action === 'Sign up') action = 'Sign in';
@@ -67,17 +67,16 @@ class UserForm extends React.Component {
   }
 
   render() {
-
     return (
       <>
         {this.state.error && <p className="error-message">{this.state.error}</p> }
         <div className="center-container">
-          <form onSubmit={this.onSubmit} className="form" >
+          <form onSubmit={this.submitHandler} className="form" >
             <input
               className="text-input"
               type="text"
               value={this.state.username}
-              onChange={this.onUsernameChange}
+              onChange={this.usernameChangeHandler}
               placeholder="username"
               autoFocus />
             <input
@@ -85,10 +84,10 @@ class UserForm extends React.Component {
               type="password"
               value={this.state.password}
               placeholder="password"
-              onChange={this.onPasswordChange} />
+              onChange={this.passwordChangeHandler} />
             <button>{this.state.action}</button>
             <p
-              onClick={this.onActionChange}
+              onClick={this.actionChangeHandler}
               className="signin-switch">
               Go to {this.state.action === 'Sign up' ? ' Sign in' : ' Sign up' }
             </p>
@@ -101,8 +100,8 @@ class UserForm extends React.Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    startLogin: data => dispatch(startLogin(data)),
-    startRegister: data => dispatch(startRegister(data))
+    onStartLogin: data => dispatch(startLogin(data)),
+    onStartRegister: data => dispatch(startRegister(data))
   };
 };
 

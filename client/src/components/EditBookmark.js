@@ -5,7 +5,7 @@ import BookmarkForm from './BookmarkForm';
 import Spinner from './Spinner';
 import NotFoundPage from './NotFoundPage';
 import axiosInstance from '../axios';
-import { startRemoveBookmark, startEditBookmark } from '../store/actions/bookmarks';
+import * as actions from '../store/actions/actionIndex';
 
 
 const EditBookmark = props => {
@@ -35,7 +35,7 @@ const EditBookmark = props => {
     <>
       <BookmarkForm
         onSubmit={bk => {
-          props.startEditBookmark(bookmark.id, bk, props.token);
+          props.onStartEditBookmark(bookmark.id, bk, props.token);
           props.history.push('/');
         }}
         bookmark={bookmark}
@@ -44,7 +44,7 @@ const EditBookmark = props => {
         <button
           className="button"
           onClick={() => {
-            props.startRemoveBookmark(bookmark.id, props.token);
+            props.onStartRemoveBookmark(bookmark.id, props.token);
             props.history.push('/');
           }}>Remove
         </button>
@@ -63,14 +63,15 @@ const mapStateToProps = (state, ownProps) => {
   return {
     bookmark: state.bookmarks.bookmarks.find(
       bookmark => bookmark.id === parseInt(ownProps.match.params.id)),
-    token: state.users.accessToken
+    token: state.auth.accessToken
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    startEditBookmark: (id, updates, token) => dispatch(startEditBookmark(id, updates, token)),
-    startRemoveBookmark: (id, token) => dispatch(startRemoveBookmark(id, token)),
+    onStartEditBookmark: (id, updates, token) => dispatch(
+      actions.startEditBookmark(id, updates, token)),
+    onStartRemoveBookmark: (id, token) => dispatch(actions.startRemoveBookmark(id, token)),
   };
 };
 

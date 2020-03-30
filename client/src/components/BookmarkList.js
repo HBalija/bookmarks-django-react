@@ -42,7 +42,7 @@ const BookmarkList = props => {
         <BookmarkModal
           clicked={onHideModal}
           { ...bookmarkShowed }
-          currentUser={props.user.username}
+          currentUser={props.username}
           show={showModal} />
         }
         <ModalBackdrop clicked={onHideModal} show={showModal} />
@@ -53,9 +53,9 @@ const BookmarkList = props => {
 
 const mapStateToProps = state => {
   return {
-    bookmarks: getBookmarks(state.bookmarks.bookmarks, state.filters, state.users.username),
+    bookmarks: getBookmarks(state.bookmarks.bookmarks, state.filters, state.auth.username),
     listLoading: state.bookmarks.listLoading,
-    user: state.users
+    username: state.auth.username
   };
 };
 

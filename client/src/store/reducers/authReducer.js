@@ -1,3 +1,5 @@
+import * as actionTypes from '../actions/actionTypes';
+
 const userReducerDefaultState = {
   username: '',
   isAuthenticated: false,
@@ -8,10 +10,10 @@ const userReducerDefaultState = {
 export default (state = userReducerDefaultState, action) => {
 
   switch (action.type) {
-  case 'AUTHENTICATE':
-    return { ...action.data };
+  case actionTypes.AUTHENTICATE:
+    return { ...state, ...action.data };
 
-  case 'LOGOUT':
+  case actionTypes.LOGOUT:
     return { ...userReducerDefaultState };
 
   default:

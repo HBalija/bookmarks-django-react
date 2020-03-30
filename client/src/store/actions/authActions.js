@@ -1,19 +1,20 @@
 import axiosInstance from '../../axios';
+import * as actionTypes from './actionTypes';
 
 
 // AUTHENTICATE
 
-export const onRefreshAuthenticate = () => {
+export const refreshAuthenticate = () => {
   const data = JSON.parse(localStorage.getItem('bookmarksData'));
   return {
-    type: 'AUTHENTICATE',
+    type: actionTypes.AUTHENTICATE,
     data
   };
 };
 
-export const onLoadAuthenticate = data => {
+const loadAuthenticate = data => {
   return {
-    type: 'AUTHENTICATE',
+    type: actionTypes.AUTHENTICATE,
     data
   };
 };
@@ -31,7 +32,7 @@ const obtainToken = async (dispatch, authData) => {
     refreshToken: response.data.refresh,
   };
 
-  dispatch(onLoadAuthenticate(data));
+  dispatch(loadAuthenticate(data));
   localStorage.setItem('bookmarksData', JSON.stringify(data));
 };
 
@@ -60,6 +61,6 @@ export const startRegister = authData => {
 export const logout = () => {
   localStorage.removeItem('bookmarksData');
   return {
-    type: 'LOGOUT'
+    type: actionTypes.LOGOUT
   };
 };

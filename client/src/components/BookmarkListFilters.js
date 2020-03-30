@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { setTextFilter, showUser, showAll, showPublic } from '../store/actions/filters';
+import * as actions from '../store/actions/actionIndex';
 
 
 const BookmarkListFilters = props => (
@@ -11,7 +11,7 @@ const BookmarkListFilters = props => (
         className="text-input"
         type="text"
         value={props.filters.text}
-        onChange={e => props.setTextFilter(e.target.value)} />
+        onChange={e => props.onSetTextFilter(e.target.value)} />
     </label>
 
     { props.isAuthenticated &&
@@ -20,9 +20,9 @@ const BookmarkListFilters = props => (
       value={props.filters.show}
       onChange={e => {
         const data = e.target.value;
-        if (data === 'all') props.showAll();
-        else if (data === 'user') props.showUser();
-        else if (data === 'public') props.showPublic();
+        if (data === 'all') props.onShowAll();
+        else if (data === 'user') props.onShowUser();
+        else if (data === 'public') props.onShowPublic();
       }} >
       <option value="all">All</option>
       <option value="user">My</option>
@@ -35,16 +35,16 @@ const BookmarkListFilters = props => (
 const mapStateToProps = state => {
   return {
     filters: state.filters,
-    isAuthenticated: state.users.isAuthenticated
+    isAuthenticated: state.auth.isAuthenticated
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    setTextFilter: value => dispatch(setTextFilter(value)),
-    showAll: () => dispatch(showAll()),
-    showPublic: () => dispatch(showPublic()),
-    showUser: () => dispatch(showUser())
+    onSetTextFilter: value => dispatch(actions.setTextFilter(value)),
+    onShowAll: () => dispatch(actions.showAll()),
+    onShowPublic: () => dispatch(actions.showPublic()),
+    onShowUser: () => dispatch(actions.showUser())
   };
 };
 
