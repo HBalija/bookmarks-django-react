@@ -8,8 +8,8 @@ const userReducerDefaultState = {
 export default (state = userReducerDefaultState, action) => {
 
   switch (action.type) {
-  case actionTypes.ON_AUTH:
-    return { ...state, ...action.data };
+  case actionTypes.AUTH_SUCCESS:
+    return { ...state, username: action.username, accessToken: action.token };
 
   case actionTypes.LOGOUT:
     return { ...userReducerDefaultState };

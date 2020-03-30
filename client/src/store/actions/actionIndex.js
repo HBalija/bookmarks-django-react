@@ -16,5 +16,5 @@ export {
 export {
   logout,
   auth,
-  loadAuthenticate
+  authCheckState
 } from './authActions';

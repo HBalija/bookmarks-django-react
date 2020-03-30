@@ -17,5 +17,5 @@ export const SHOW_PUBLIC_BOOKMARKS = 'SHOW_PUBLIC_BOOKMARKS';
 
 // AUTH
 
-export const ON_AUTH = 'ON_AUTH';
+export const AUTH_SUCCESS = 'AUTH_SUCCESS';
 export const LOGOUT = 'LOGOUT';

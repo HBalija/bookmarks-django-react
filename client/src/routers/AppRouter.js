@@ -27,7 +27,7 @@ const asyncEditBookmark = asyncComponent(() => {
 const AppRouter = props => {
 
   useEffect(() => {
-    props.onLoadAuthenticate(null);
+    props.onAuthCheckState();
     props.onStartSetBookmarks(props.token);
   }, [props]);
 
@@ -72,7 +72,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onLoadAuthenticate: () => dispatch(actions.loadAuthenticate()),
+    onAuthCheckState: () => dispatch(actions.authCheckState()),
     onStartSetBookmarks: token => dispatch(actions.startSetBookmarks(token))
   };
 };
