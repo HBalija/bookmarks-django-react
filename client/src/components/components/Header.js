@@ -49,7 +49,7 @@ const Header = props => {
 
 const mapStateToProps = state => {
   return {
-    isAuthenticated: state.auth.isAuthenticated,
+    isAuthenticated: state.auth.username !== null,
     username: state.auth.username
   };
 };

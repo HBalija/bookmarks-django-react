@@ -16,7 +16,7 @@ import NotFoundPage from '../components/UI/NotFoundPage';
 const AppRouter = props => {
 
   useEffect(() => {
-    props.onRefreshAuthenticate();
+    props.onLoadAuthenticate(null, true);
     props.onStartSetBookmarks(props.token);
   }, [props]);
 
@@ -61,7 +61,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onRefreshAuthenticate: () => dispatch(actions.refreshAuthenticate()),
+    onLoadAuthenticate: () => dispatch(actions.loadAuthenticate()),
     onStartSetBookmarks: token => dispatch(actions.startSetBookmarks(token))
   };
 };

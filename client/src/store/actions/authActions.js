@@ -4,17 +4,10 @@ import * as actionTypes from './actionTypes';
 
 // AUTHENTICATE
 
-export const refreshAuthenticate = () => {
-  const data = JSON.parse(localStorage.getItem('bookmarksData'));
+export const loadAuthenticate = (data) => {
+  if (!data) data = JSON.parse(localStorage.getItem('bookmarksData'));
   return {
-    type: actionTypes.AUTHENTICATE,
-    data
-  };
-};
-
-const loadAuthenticate = data => {
-  return {
-    type: actionTypes.AUTHENTICATE,
+    type: actionTypes.ON_AUTH,
     data
   };
 };
@@ -27,9 +20,7 @@ const obtainToken = async (dispatch, authData) => {
 
   const data = {
     username: authData.username,
-    isAuthenticated: !!response.data.access,
     accessToken: response.data.access,
-    refreshToken: response.data.refresh,
   };
 
   dispatch(loadAuthenticate(data));
@@ -37,20 +28,11 @@ const obtainToken = async (dispatch, authData) => {
 };
 
 
-// LOGIN
-
-export const startLogin = authData => {
-  return dispatch => {
-    return obtainToken(dispatch, authData);
-  };
-};
-
-
-// REGISTER
-
-export const startRegister = authData => {
+export const auth = (authData, method) => {
   return async dispatch => {
-    await axiosInstance.post('/register/', authData);
+    if (method === 'Sign up') {
+      await axiosInstance.post('/register/', authData);
+    }
     return obtainToken(dispatch, authData);
   };
 };

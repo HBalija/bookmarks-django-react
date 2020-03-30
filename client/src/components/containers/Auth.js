@@ -4,6 +4,7 @@ import { Redirect } from 'react-router-dom';
 
 import * as actions from '../../store/actions/actionIndex';
 
+import Spinner from '../UI/Spinner';
 
 class UserForm extends React.Component {
 
@@ -12,6 +13,7 @@ class UserForm extends React.Component {
     username: '',
     password: '',
     action: 'Sign in',
+    loading: false
   }
 
   usernameChangeHandler = e => {
@@ -37,25 +39,16 @@ class UserForm extends React.Component {
         password: this.state.password
       };
 
-      if (this.state.action === 'Sign in') {
-        this.props.onStartLogin(authData)
-          .then(() => {
-            this.props.history.push('/');
-          }).catch(error => {
-            // console.log(error.response.status === 401);
-            this.setState(() => ({ error: error.response.data.detail }));
-          });
-      } else if (this.state.action === 'Sign up') {
-        this.props.onStartRegister(authData)
-          .then(() => {
-            this.props.history.push('/');
-          })
-          .catch(error => {
-            // console.log(error.response.status === 400);
-            this.setState(() => ({ error: error.response.data.username[0] }));
-          });
-      }
-
+      this.setState(() => ({ loading: true }));
+      this.props.onAuth(authData, this.state.action)
+        .then(() => {
+          this.setState(() => ({ loading: false }));
+        })
+        .catch(error => {
+          const errData = error.response.data;
+          const responseError = errData.username ? errData.username[0] : errData.detail;
+          this.setState(() => ({ error: responseError, loading: false }));
+        });
     }
   }
 
@@ -69,7 +62,8 @@ class UserForm extends React.Component {
   }
 
   render() {
-    return (
+
+    let jsx = (
       <>
         {this.props.isAuthenticated && <Redirect to="/" />}
         {this.state.error && <p className="error-message">{this.state.error}</p> }
@@ -92,12 +86,16 @@ class UserForm extends React.Component {
             <p
               onClick={this.actionChangeHandler}
               className="signin-switch">
-              Go to {this.state.action === 'Sign up' ? ' Sign in' : ' Sign up' }
+            Go to {this.state.action === 'Sign up' ? ' Sign in' : ' Sign up' }
             </p>
           </form>
         </div>
       </>
     );
+
+    if (this.state.loading) jsx = <Spinner />;
+
+    return jsx;
   }
 }
 
@@ -109,8 +107,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onStartLogin: data => dispatch(actions.startLogin(data)),
-    onStartRegister: data => dispatch(actions.startRegister(data))
+    onAuth: (data, method) => dispatch(actions.auth(data, method))
   };
 };
 

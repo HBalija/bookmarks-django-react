@@ -2,14 +2,13 @@ import * as actionTypes from '../actions/actionTypes';
 
 const userReducerDefaultState = {
   username: null,
-  refreshToken: null,
   accessToken: null
 };
 
 export default (state = userReducerDefaultState, action) => {
 
   switch (action.type) {
-  case actionTypes.AUTHENTICATE:
+  case actionTypes.ON_AUTH:
     return { ...state, ...action.data };
 
   case actionTypes.LOGOUT:

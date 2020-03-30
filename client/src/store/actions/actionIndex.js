@@ -15,7 +15,6 @@ export {
 
 export {
   logout,
-  startLogin,
-  startRegister,
-  refreshAuthenticate
+  auth,
+  loadAuthenticate
 } from './authActions';
