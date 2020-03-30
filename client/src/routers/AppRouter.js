@@ -34,6 +34,7 @@ const AppRouter = props => {
         <Route path='/' component={BookmarkList} exact={true} />
         <Route path='/create' component={AddBookmark} />
         <Route path='/edit/:id' component={EditBookmark} />
+        <Route path='/auth' component={Auth} />
         <Route component={NotFoundPage} />
       </Switch>
     );

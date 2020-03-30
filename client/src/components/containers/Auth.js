@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
 import * as actions from '../../store/actions/actionIndex';
 
@@ -70,6 +71,7 @@ class UserForm extends React.Component {
   render() {
     return (
       <>
+        {this.props.isAuthenticated && <Redirect to="/" />}
         {this.state.error && <p className="error-message">{this.state.error}</p> }
         <div className="center-container">
           <form onSubmit={this.submitHandler} className="form" >
@@ -99,6 +101,12 @@ class UserForm extends React.Component {
   }
 }
 
+const mapStateToProps = state => {
+  return {
+    isAuthenticated: state.auth.username !== null
+  };
+};
+
 const mapDispatchToProps = dispatch => {
   return {
     onStartLogin: data => dispatch(actions.startLogin(data)),
@@ -106,4 +114,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(null, mapDispatchToProps)(UserForm);
+export default connect(mapStateToProps, mapDispatchToProps)(UserForm);

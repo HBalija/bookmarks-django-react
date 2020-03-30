@@ -1,10 +1,9 @@
 import * as actionTypes from '../actions/actionTypes';
 
 const userReducerDefaultState = {
-  username: '',
-  isAuthenticated: false,
-  refreshToken: '',
-  accessToken: ''
+  username: null,
+  refreshToken: null,
+  accessToken: null
 };
 
 export default (state = userReducerDefaultState, action) => {

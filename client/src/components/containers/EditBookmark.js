@@ -16,9 +16,10 @@ const EditBookmark = props => {
   const [loading, setLoading] = useState(!props.bookmark);
 
   useEffect(() => {
+    console.log('move to actions');
     if (loading) {
       axiosInstance.get(`/bookmarks/${props.match.params.id}/`,
-        { headers: { Authorization: props.token ? `JWT ${props.token}` : '' } })
+        { headers: { Authorization: `JWT ${props.token}` } })
         .then(response =>{
           setBookmark(response.data);
           setLoading(false);

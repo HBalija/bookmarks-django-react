@@ -37,6 +37,7 @@ const Header = props => {
                 onClick={() => {
                   props.onLogout();
                   props.onLogoutSetBookmarks();
+                  props.history.push('/');
                 }}>Logout</span>
             </div>
           }

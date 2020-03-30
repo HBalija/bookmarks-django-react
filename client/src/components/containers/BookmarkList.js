@@ -14,12 +14,12 @@ const BookmarkList = props => {
   const [showModal, onShowModal] = useState(false);
   const [bookmarkShowed, onShowBookmark] = useState('');
 
-  const startShowModal = id => {
+  const showModalHandler = id => {
     onShowBookmark(props.bookmarks.find(bookmark => bookmark.id === id));
     onShowModal(true);
   };
 
-  const onHideModal = () => {
+  const hideModalHandler = () => {
     onShowModal(false);
     onShowBookmark('');
   };
@@ -34,18 +34,18 @@ const BookmarkList = props => {
             <Spinner /> :
             props.bookmarks.map(bookmark => (
               <BookmarkListItem
-                clicked={startShowModal}
+                clicked={showModalHandler}
                 key={bookmark.id}
                 { ...bookmark } />))
         }
         { showModal &&
         <Modal
-          clicked={onHideModal}
+          clicked={hideModalHandler}
           { ...bookmarkShowed }
           currentUser={props.username}
           show={showModal} />
         }
-        <ModalBackdrop clicked={onHideModal} show={showModal} />
+        <ModalBackdrop clicked={hideModalHandler} show={showModal} />
       </div>
     </div>
   );

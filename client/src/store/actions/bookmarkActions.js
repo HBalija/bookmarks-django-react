@@ -24,7 +24,7 @@ const addBookmark = (
 export const startAddBookmark = (token, data) => {
   return dispatch => {
     axiosInstance.post(
-      '/bookmarks/', data, { headers: { Authorization: token ? `JWT ${token}` : '' } });
+      '/bookmarks/', data, { headers: { Authorization: `JWT ${token}` } });
     dispatch(addBookmark(data));
   };
 };
@@ -39,8 +39,7 @@ const removeBookmark = id => ({
 
 export const startRemoveBookmark = (id, token) => {
   return dispatch => {
-    axiosInstance.delete(`/bookmarks/${id}/`,
-      { headers: { Authorization: token ? `JWT ${token}` : '' } });
+    axiosInstance.delete(`/bookmarks/${id}/`, { headers: { Authorization: `JWT ${token}` } });
     dispatch(removeBookmark(id));
   };
 };
@@ -58,7 +57,7 @@ export const startEditBookmark = (id, updates, token) => {
   return dispatch => {
     dispatch(editBookmark(id, updates));
     axiosInstance.patch(`/bookmarks/${id}/`, updates,
-      { headers: { Authorization: token ? `JWT ${token}` : '' } });
+      { headers: { Authorization: `JWT ${token}` } });
   };
 };
 
