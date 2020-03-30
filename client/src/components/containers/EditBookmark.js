@@ -1,25 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 
-import BookmarkForm from './BookmarkForm';
-import Spinner from './Spinner';
-import NotFoundPage from './NotFoundPage';
-import axiosInstance from '../axios';
-import { startRemoveBookmark, startEditBookmark } from '../store/actions/bookmarks';
+import axiosInstance from '../../axios';
+import * as actions from '../../store/actions/actionIndex';
+
+import BookmarkForm from '../components/BookmarkForm';
+import Spinner from '../UI/Spinner';
+import NotFoundPage from '../UI/NotFoundPage';
 
 
 const EditBookmark = props => {
-
 
   const [bookmark, setBookmark] = useState(props.bookmark);
   const [notFound, setNotFound] = useState(false);
   const [loading, setLoading] = useState(!props.bookmark);
 
-
   useEffect(() => {
     if (loading) {
       axiosInstance.get(`/bookmarks/${props.match.params.id}/`,
-        { headers: { Authorization: props.token ? `JWT ${props.token}` : '' } })
+        { headers: { Authorization: `JWT ${props.token}` } })
         .then(response =>{
           setBookmark(response.data);
           setLoading(false);
@@ -35,7 +34,7 @@ const EditBookmark = props => {
     <>
       <BookmarkForm
         onSubmit={bk => {
-          props.startEditBookmark(bookmark.id, bk, props.token);
+          props.onStartEditBookmark(bookmark.id, bk, props.token);
           props.history.push('/');
         }}
         bookmark={bookmark}
@@ -44,7 +43,7 @@ const EditBookmark = props => {
         <button
           className="button"
           onClick={() => {
-            props.startRemoveBookmark(bookmark.id, props.token);
+            props.onStartRemoveBookmark(bookmark.id, props.token);
             props.history.push('/');
           }}>Remove
         </button>
@@ -63,14 +62,15 @@ const mapStateToProps = (state, ownProps) => {
   return {
     bookmark: state.bookmarks.bookmarks.find(
       bookmark => bookmark.id === parseInt(ownProps.match.params.id)),
-    token: state.users.accessToken
+    token: state.auth.accessToken
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    startEditBookmark: (id, updates, token) => dispatch(startEditBookmark(id, updates, token)),
-    startRemoveBookmark: (id, token) => dispatch(startRemoveBookmark(id, token)),
+    onStartEditBookmark: (id, updates, token) => dispatch(
+      actions.startEditBookmark(id, updates, token)),
+    onStartRemoveBookmark: (id, token) => dispatch(actions.startRemoveBookmark(id, token)),
   };
 };
 

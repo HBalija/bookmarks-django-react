@@ -21,3 +21,9 @@
 .bookmark:active {
   background-color: #C0DDF5;
 }
+
+@media (max-width: 800px) {
+  .bookmark {
+    width: 120px;
+  }
+}

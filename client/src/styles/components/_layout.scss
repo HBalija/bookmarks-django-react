@@ -5,3 +5,9 @@
 .list-header {
   margin-bottom: 2.5rem;
 }
+
+@media (max-width: 870px) {
+  .list-header{
+    display: none;
+  }
+}

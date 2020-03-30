@@ -17,28 +17,27 @@ class BookmarkForm extends React.Component {
     };
   }
 
-  onNameChange = e => {
+  nameChangeHandler = e => {
     const name = e.target.value;
     this.setState(() => ({ name }));
   }
 
-  onDescriptionChange = e => {
+  descriptionChangeHandler = e => {
     const description = e.target.value;
     this.setState(() => ({ description }));
   }
 
-  onBookmarkLinkChange = e => {
+  bookmarkLinkChangeHandler = e => {
     const bookmark_link = e.target.value;
     this.setState(() => ({ bookmark_link }));
   }
 
-  onIsPublicChange = e => {
+  isPublicChangeHandler = e => {
     const is_public = e.target.checked;
     this.setState(() => ({ is_public }));
   }
 
-
-  onSubmit = e => {
+  submitHandler = e => {
     e.preventDefault();
 
     if (!this.state.name || !this.state.bookmark_link) {
@@ -67,13 +66,13 @@ class BookmarkForm extends React.Component {
               type="text"
               placeholder="Name"
               value={this.state.name}
-              onChange={this.onNameChange}
+              onChange={this.nameChangeHandler}
               autoFocus />
             <input
               className="text-input"
               type="url"
               value={this.state.bookmark_link}
-              onChange={this.onBookmarkLinkChange}
+              onChange={this.bookmarkLinkChangeHandler}
               placeholder="Bookmark Link" />
             <label
               className="checkbox-label"
@@ -82,7 +81,7 @@ class BookmarkForm extends React.Component {
                 className="checkbox"
                 id="bookmark_link"
                 type="checkbox"
-                onChange={this.onIsPublicChange}
+                onChange={this.isPublicChangeHandler}
                 defaultChecked={this.state.is_public}
                 value={this.state.bookmark_link} />
               <span>Is bookmark public?</span>
@@ -91,7 +90,7 @@ class BookmarkForm extends React.Component {
               className="textarea"
               placeholder="Add a description for your bookmark (optional)"
               value={this.state.description}
-              onChange={this.onDescriptionChange}
+              onChange={this.descriptionChangeHandler}
               rows="4">
             </textarea>
             <button>{this.props.action}</button>

@@ -3,11 +3,12 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import { logout } from '../store/actions/users';
-import { onLogoutSetBookmarks } from '../store/actions/bookmarks';
-import BookmarkListFilters from './BookmarkListFilters';
+import * as actions from '../../store/actions/actionIndex';
 
-const Header =  props => {
+import Filters from './Filters';
+
+
+const Header = props => {
   return (
     <header className="header">
       <div className="header-content-container">
@@ -17,7 +18,7 @@ const Header =  props => {
               to="/">
               <h1 className="title">Bookmarks</h1>
             </Link>
-            { props.location.pathname === '/' && <BookmarkListFilters />  }
+            { props.location.pathname === '/' && <Filters /> }
           </div>
           {
             (!props.isAuthenticated && props.location.pathname !== '/auth') &&
@@ -26,7 +27,7 @@ const Header =  props => {
               </Link>
           }
           {
-            props.isAuthenticated  &&
+            props.isAuthenticated &&
             <div className="header-right-group">
               <span className="user">Hello, {props.username}</span>
               {props.location.pathname === '/' &&
@@ -34,8 +35,9 @@ const Header =  props => {
               <span
                 className="button-header-login"
                 onClick={() => {
-                  props.logout();
+                  props.onLogout();
                   props.onLogoutSetBookmarks();
+                  props.history.push('/');
                 }}>Logout</span>
             </div>
           }
@@ -47,15 +49,15 @@ const Header =  props => {
 
 const mapStateToProps = state => {
   return {
-    isAuthenticated: state.users.isAuthenticated,
-    username: state.users.username
+    isAuthenticated: state.auth.username !== null,
+    username: state.auth.username
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    logout: () => dispatch(logout()),
-    onLogoutSetBookmarks: () => dispatch(onLogoutSetBookmarks())
+    onLogout: () => dispatch(actions.logout()),
+    onLogoutSetBookmarks: () => dispatch(actions.onLogoutSetBookmarks())
   };
 };
 

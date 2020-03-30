@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 
-import getBookmarks from '../utils/getVisibleBookmarks';
+import getBookmarks from '../../utils/getVisibleBookmarks';
 
-import BookmarkListItem from './BookmarkListItem';
-import Spinner from './Spinner';
-import BookmarkModal from './BookmarkModal';
-import ModalBackdrop from './ModalBackdrop';
+import BookmarkListItem from '../components/BookmarkListItem';
+import Modal from '../UI/Modal';
+import ModalBackdrop from '../UI/ModalBackdrop';
+import Spinner from '../UI/Spinner';
 
 
 const BookmarkList = props => {
@@ -14,12 +14,12 @@ const BookmarkList = props => {
   const [showModal, onShowModal] = useState(false);
   const [bookmarkShowed, onShowBookmark] = useState('');
 
-  const startShowModal = id => {
+  const showModalHandler = id => {
     onShowBookmark(props.bookmarks.find(bookmark => bookmark.id === id));
     onShowModal(true);
   };
 
-  const onHideModal = () => {
+  const hideModalHandler = () => {
     onShowModal(false);
     onShowBookmark('');
   };
@@ -34,18 +34,18 @@ const BookmarkList = props => {
             <Spinner /> :
             props.bookmarks.map(bookmark => (
               <BookmarkListItem
-                clicked={startShowModal}
+                clicked={showModalHandler}
                 key={bookmark.id}
                 { ...bookmark } />))
         }
         { showModal &&
-        <BookmarkModal
-          clicked={onHideModal}
+        <Modal
+          clicked={hideModalHandler}
           { ...bookmarkShowed }
-          currentUser={props.user.username}
+          currentUser={props.username}
           show={showModal} />
         }
-        <ModalBackdrop clicked={onHideModal} show={showModal} />
+        <ModalBackdrop clicked={hideModalHandler} show={showModal} />
       </div>
     </div>
   );
@@ -53,9 +53,9 @@ const BookmarkList = props => {
 
 const mapStateToProps = state => {
   return {
-    bookmarks: getBookmarks(state.bookmarks.bookmarks, state.filters, state.users.username),
+    bookmarks: getBookmarks(state.bookmarks.bookmarks, state.filters, state.auth.username),
     listLoading: state.bookmarks.listLoading,
-    user: state.users
+    username: state.auth.username
   };
 };
 

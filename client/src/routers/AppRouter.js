@@ -2,31 +2,39 @@ import React, { useEffect } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import Layout from '../components/Layout';
-import Header from '../components/Header';
-import BookmarkList from '../components/BookmarkList';
-import AddBookmark from '../components/AddBookmark';
-import EditBookmark from '../components/EditBookmark';
-import NotFoundPage from '../components/NotFoundPage';
-import UserForm from '../components/UserForm';
+import * as actions from '../store/actions/actionIndex';
+import asyncComponent from '../components/hoc/asyncComponent';
+
+import BookmarkList from '../components/containers/BookmarkList';
+import Header from '../components/components/Header';
+import Layout from '../components/UI/Layout';
+import NotFoundPage from '../components/UI/NotFoundPage';
 
 
-import { onRefreshAuthenticate } from '../store/actions/users';
-import { startSetBookmarks } from '../store/actions/bookmarks';
+const asyncAuth = asyncComponent(() => {
+  return import('../components/containers/Auth');
+});
+
+const asyncAddBookmark = asyncComponent(() => {
+  return import('../components/containers/AddBookmark');
+});
+
+const asyncEditBookmark = asyncComponent(() => {
+  return import('../components/containers/EditBookmark');
+});
 
 
 const AppRouter = props => {
 
   useEffect(() => {
-    props.onRefreshAuthenticate();
-    props.startSetBookmarks(props.token);
+    props.onAuthCheckState();
+    props.onStartSetBookmarks(props.token);
   }, [props]);
 
   let routes = (
     <Switch>
       <Route path='/' component={BookmarkList} exact={true} />
-      <Route path='/auth' component={UserForm} />
-      {/* <Redirect to='/' /> */}
+      <Route path='/auth' component={asyncAuth} />
       <Route component={NotFoundPage} />
     </Switch>
   );
@@ -35,9 +43,9 @@ const AppRouter = props => {
     routes = (
       <Switch>
         <Route path='/' component={BookmarkList} exact={true} />
-        <Route path='/create' component={AddBookmark} />
-        <Route path='/edit/:id' component={EditBookmark} />
-        {/* <Redirect to='/' /> */}
+        <Route path='/create' component={asyncAddBookmark} />
+        <Route path='/edit/:id' component={asyncEditBookmark} />
+        <Route path='/auth' component={asyncAuth} />
         <Route component={NotFoundPage} />
       </Switch>
     );
@@ -56,16 +64,16 @@ const AppRouter = props => {
 
 const mapStateToProps = state => {
   return {
-    isAuthenticated: state.users.isAuthenticated,
-    token: state.users.accessToken
+    isAuthenticated: state.auth.username !== null,
+    token: state.auth.accessToken
   };
 
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    onRefreshAuthenticate: () => dispatch(onRefreshAuthenticate()),
-    startSetBookmarks: token => dispatch(startSetBookmarks(token))
+    onAuthCheckState: () => dispatch(actions.authCheckState()),
+    onStartSetBookmarks: token => dispatch(actions.startSetBookmarks(token))
   };
 };
 
