@@ -3,27 +3,38 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import * as actions from '../store/actions/actionIndex';
+import asyncComponent from '../components/hoc/asyncComponent';
 
-import AddBookmark from '../components/containers/AddBookmark';
-import Auth from '../components/containers/Auth';
 import BookmarkList from '../components/containers/BookmarkList';
-import EditBookmark from '../components/containers/EditBookmark';
 import Header from '../components/components/Header';
 import Layout from '../components/UI/Layout';
 import NotFoundPage from '../components/UI/NotFoundPage';
 
 
+const asyncAuth = asyncComponent(() => {
+  return import('../components/containers/Auth');
+});
+
+const asyncAddBookmark = asyncComponent(() => {
+  return import('../components/containers/AddBookmark');
+});
+
+const asyncEditBookmark = asyncComponent(() => {
+  return import('../components/containers/EditBookmark');
+});
+
+
 const AppRouter = props => {
 
   useEffect(() => {
-    props.onLoadAuthenticate(null, true);
+    props.onLoadAuthenticate(null);
     props.onStartSetBookmarks(props.token);
   }, [props]);
 
   let routes = (
     <Switch>
       <Route path='/' component={BookmarkList} exact={true} />
-      <Route path='/auth' component={Auth} />
+      <Route path='/auth' component={asyncAuth} />
       <Route component={NotFoundPage} />
     </Switch>
   );
@@ -32,9 +43,9 @@ const AppRouter = props => {
     routes = (
       <Switch>
         <Route path='/' component={BookmarkList} exact={true} />
-        <Route path='/create' component={AddBookmark} />
-        <Route path='/edit/:id' component={EditBookmark} />
-        <Route path='/auth' component={Auth} />
+        <Route path='/create' component={asyncAddBookmark} />
+        <Route path='/edit/:id' component={asyncEditBookmark} />
+        <Route path='/auth' component={asyncAuth} />
         <Route component={NotFoundPage} />
       </Switch>
     );
@@ -53,7 +64,7 @@ const AppRouter = props => {
 
 const mapStateToProps = state => {
   return {
-    isAuthenticated: state.auth.isAuthenticated,
+    isAuthenticated: state.auth.username !== null,
     token: state.auth.accessToken
   };
 

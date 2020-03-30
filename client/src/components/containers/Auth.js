@@ -29,8 +29,8 @@ class UserForm extends React.Component {
   submitHandler = e => {
     e.preventDefault();
 
-    if (!this.state.username || !this.state.password) {
-      this.setState(() => ({ error: 'Please provide username and password' }));
+    if (!this.state.username || (this.state.password.length < 8)) {
+      this.setState(() => ({ error: 'Please provide username and password of min 8 characters' }));
     } else {
       this.setState(() => ({ error: '' }));
 

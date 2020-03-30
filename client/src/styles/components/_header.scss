@@ -29,11 +29,11 @@
   font-size: 0.8rem;
 }
 
-@media (max-width: 600px) {
-  .header-right-group {
-    display: grid;
-  }
-}
+// @media (max-width: 600px) {
+//   .header-right-group {
+//     display: grid;
+//   }
+// }
 
 .filters-container {
   align-items: center;
@@ -44,5 +44,19 @@
 @media (max-width: 850px) {
   .filters-container {
     display: grid;
+  }
+
+  .title {
+    display: none
+  }
+}
+
+@media (max-width: 650px) {
+  .header-right-group {
+    display: grid;
+  }
+
+  .user {
+    margin-bottom: 5px;
   }
 }
