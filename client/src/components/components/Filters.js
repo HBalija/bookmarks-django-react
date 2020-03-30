@@ -6,13 +6,13 @@ import * as actions from '../../store/actions/actionIndex';
 
 const BookmarkListFilters = props => (
   <>
-    <label className="fake-button">Search:
-      <input
-        className="text-input"
-        type="text"
-        value={props.filters.text}
-        onChange={e => props.onSetTextFilter(e.target.value)} />
-    </label>
+    <label className="filter-label">Search:</label>
+    <input
+      className="text-input"
+      type="text"
+      value={props.filters.text}
+      onChange={e => props.onSetTextFilter(e.target.value)} />
+
 
     { props.isAuthenticated &&
     <select
@@ -35,7 +35,7 @@ const BookmarkListFilters = props => (
 const mapStateToProps = state => {
   return {
     filters: state.filters,
-    isAuthenticated: state.auth.isAuthenticated
+    isAuthenticated: state.auth.username !== null
   };
 };
 

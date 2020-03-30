@@ -29,34 +29,41 @@
   font-size: 0.8rem;
 }
 
-// @media (max-width: 600px) {
-//   .header-right-group {
-//     display: grid;
-//   }
-// }
-
 .filters-container {
   align-items: center;
   display: flex;
   justify-content: space-between;
 }
 
-@media (max-width: 850px) {
+@media (max-width: 670px) {
   .filters-container {
     display: grid;
   }
 
-  .title {
-    display: none
+  .filter-label {
+    display: none;
+  }
+
+
+  .space-content {
+    padding-bottom: 5px;;
+  }
+
+  .header {
+    padding: 0 0 5px 0;
   }
 }
 
-@media (max-width: 650px) {
+@media (max-width: 870px) {
   .header-right-group {
     display: grid;
   }
 
+  .header {
+    padding: 0;
+  }
+
   .user {
-    margin-bottom: 5px;
+    margin: 20px 0;
   }
 }
