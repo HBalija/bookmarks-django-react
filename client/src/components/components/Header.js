@@ -3,8 +3,10 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import BookmarkListFilters from './BookmarkListFilters';
-import * as actions from '../store/actions/actionIndex';
+import * as actions from '../../store/actions/actionIndex';
+
+import Filters from './Filters';
+
 
 const Header = props => {
   return (
@@ -16,7 +18,7 @@ const Header = props => {
               to="/">
               <h1 className="title">Bookmarks</h1>
             </Link>
-            { props.location.pathname === '/' && <BookmarkListFilters /> }
+            { props.location.pathname === '/' && <Filters /> }
           </div>
           {
             (!props.isAuthenticated && props.location.pathname !== '/auth') &&

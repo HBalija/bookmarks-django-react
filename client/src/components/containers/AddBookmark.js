@@ -1,8 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import * as actions from '../store/actions/actionIndex';
-import BookmarkForm from './BookmarkForm';
+import * as actions from '../../store/actions/actionIndex';
+
+import BookmarkForm from '../components/BookmarkForm';
 
 
 const AddBookmark = props => {

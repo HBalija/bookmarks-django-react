@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { startLogin, startRegister } from '../store/actions/authActions';
+
+import * as actions from '../../store/actions/actionIndex';
 
 
 class UserForm extends React.Component {
@@ -100,8 +101,8 @@ class UserForm extends React.Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onStartLogin: data => dispatch(startLogin(data)),
-    onStartRegister: data => dispatch(startRegister(data))
+    onStartLogin: data => dispatch(actions.startLogin(data)),
+    onStartRegister: data => dispatch(actions.startRegister(data))
   };
 };
 

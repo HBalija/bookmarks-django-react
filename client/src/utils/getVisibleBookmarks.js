@@ -1,6 +1,6 @@
 const getVisibleBookmarks = (bookmarks, { text, show }, user) => {
 
-  const textFiltered = bookmarks.filter(bookmark =>  {
+  const textFiltered = bookmarks.filter(bookmark => {
     return bookmark.name.toLowerCase().includes(text.toLowerCase());
   });
 

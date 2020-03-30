@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 
-import getBookmarks from '../utils/getVisibleBookmarks';
+import getBookmarks from '../../utils/getVisibleBookmarks';
 
-import BookmarkListItem from './BookmarkListItem';
-import Spinner from './Spinner';
-import BookmarkModal from './BookmarkModal';
-import ModalBackdrop from './ModalBackdrop';
+import BookmarkListItem from '../components/BookmarkListItem';
+import Modal from '../UI/Modal';
+import ModalBackdrop from '../UI/ModalBackdrop';
+import Spinner from '../UI/Spinner';
 
 
 const BookmarkList = props => {
@@ -39,7 +39,7 @@ const BookmarkList = props => {
                 { ...bookmark } />))
         }
         { showModal &&
-        <BookmarkModal
+        <Modal
           clicked={onHideModal}
           { ...bookmarkShowed }
           currentUser={props.username}

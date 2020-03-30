@@ -3,12 +3,11 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 
 import * as serviceWorker from './serviceWorker';
+import './index.scss';
 
 import configureStore from './store/configureStore';
+
 import AppRouter from './routers/AppRouter';
-
-
-import './index.scss';
 
 
 const store = configureStore();

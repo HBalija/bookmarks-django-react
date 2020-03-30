@@ -1,20 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 
-import BookmarkForm from './BookmarkForm';
-import Spinner from './Spinner';
-import NotFoundPage from './NotFoundPage';
-import axiosInstance from '../axios';
-import * as actions from '../store/actions/actionIndex';
+import axiosInstance from '../../axios';
+import * as actions from '../../store/actions/actionIndex';
+
+import BookmarkForm from '../components/BookmarkForm';
+import Spinner from '../UI/Spinner';
+import NotFoundPage from '../UI/NotFoundPage';
 
 
 const EditBookmark = props => {
 
-
   const [bookmark, setBookmark] = useState(props.bookmark);
   const [notFound, setNotFound] = useState(false);
   const [loading, setLoading] = useState(!props.bookmark);
-
 
   useEffect(() => {
     if (loading) {
