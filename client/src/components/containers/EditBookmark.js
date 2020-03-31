@@ -61,7 +61,7 @@ const EditBookmark = props => {
 const mapStateToProps = (state, ownProps) => {
   return {
     bookmark: state.bookmarks.bookmarks.find(
-      bookmark => bookmark.id === parseInt(ownProps.match.params.id)),
+      bookmark => bookmark.id === +ownProps.match.params.id),
     token: state.auth.accessToken
   };
 };

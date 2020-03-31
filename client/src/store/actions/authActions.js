@@ -2,7 +2,7 @@ import axiosInstance from '../../axios';
 import * as actionTypes from './actionTypes';
 
 
-// amount of time our token is valid in miliseconds (current fake data: 1 hour)
+// amount of time our token is valid in miliseconds (1 hour)
 const EXPIRATION_TIME = 3600 * 1000;
 
 

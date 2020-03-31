@@ -60,7 +60,7 @@ class BookmarkForm extends React.Component {
       <>
         {this.state.error && <p className="error-message">{this.state.error}</p>}
         <div className="center-container">
-          <form onSubmit={this.onSubmit} className="form">
+          <form onSubmit={this.submitHandler} className="form">
             <input
               className="text-input"
               type="text"
