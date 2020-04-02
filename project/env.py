@@ -19,15 +19,13 @@ def ENV_BOOL(name, default=False):
     If the environment variable is not set or value is not one or "true" or
     "false", the default value is returned instead.
     """
-
     if name not in os.environ:
         return default
     if os.environ[name].lower() in ['true', 'yes', '1']:
         return True
-    elif os.environ[name].lower() in ['false', 'no', '0']:
+    if os.environ[name].lower() in ['false', 'no', '0']:
         return False
-    else:
-        return default
+    return default
 
 
 def ENV_STR(name, default=None):
@@ -36,7 +34,6 @@ def ENV_STR(name, default=None):
     If the environment variable is not set, the default value is returned
     instead.
     """
-
     return os.environ.get(name, default)
 
 
@@ -51,6 +48,7 @@ def ENV_LIST(name, separator, default=None):
 
     if name not in os.environ:
         return default
+
     return os.environ[name].split(separator)
 
 
