@@ -12,7 +12,6 @@ DEBUG = ENV_BOOL('DEBUG')
 
 ALLOWED_HOSTS = ENV_LIST('ALLOWED_HOSTS', ',', ['*'] if DEBUG else [])
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -23,6 +22,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'rest_framework',
     'corsheaders',
 
     'bookmarks'

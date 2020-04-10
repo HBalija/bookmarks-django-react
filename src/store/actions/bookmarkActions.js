@@ -1,20 +1,14 @@
-import uuid from 'uuid';
-
 import axiosInstance from '../../axios';
 import * as actionTypes from './actionTypes';
 
 
 // ADD_BOOKMARK
 
-const addBookmark = (
-  { name = '', description = '', is_public = false, bookmark_link = '' } = {}) => ({
+const addBookmark = (bookmark, id) => ({
   type: actionTypes.ADD_BOOKMARK,
   bookmark: {
-    id: uuid(),
-    name,
-    description,
-    is_public,
-    bookmark_link,
+    ...bookmark,
+    id,
     user: {
       username: JSON.parse(localStorage.getItem('bookmarksData')).username
     }
@@ -23,9 +17,10 @@ const addBookmark = (
 
 export const startAddBookmark = (token, data) => {
   return dispatch => {
-    axiosInstance.post(
-      '/bookmarks/', data, { headers: { Authorization: `JWT ${token}` } });
-    dispatch(addBookmark(data));
+    axiosInstance.post('/bookmarks/', data, { headers: { Authorization: `JWT ${token}` } })
+      .then(res => {
+        dispatch(addBookmark(data, res.data.id));
+      });
   };
 };
 
