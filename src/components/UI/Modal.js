@@ -14,7 +14,7 @@ export default props => (
     }
     <div className="modal-button-container">
       <div>
-        <a className="button" href={props.bookmark_link}>Visit bookmark</a>
+        <a className="button" target="_blank" href={props.bookmark_link}>Visit bookmark</a>
         {
           props.user.username === props.currentUser &&
       <Link to={`/edit/${props.id}`}><span className="button">Edit</span></Link>
