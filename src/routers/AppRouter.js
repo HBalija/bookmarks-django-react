@@ -11,41 +11,42 @@ import Layout from '../components/UI/Layout';
 import NotFoundPage from '../components/UI/NotFoundPage';
 
 
-const asyncAuth = asyncComponent(() => {
+const Auth = asyncComponent(() => {
   return import('../components/containers/Auth');
 });
 
-const asyncAddBookmark = asyncComponent(() => {
+const AddBookmark = asyncComponent(() => {
   return import('../components/containers/AddBookmark');
 });
 
-const asyncEditBookmark = asyncComponent(() => {
+const EditBookmark = asyncComponent(() => {
   return import('../components/containers/EditBookmark');
 });
 
 
 const AppRouter = props => {
+  const { onAuthCheckState, onStartSetBookmarks, isAuthenticated, token } = props;
 
   useEffect(() => {
-    props.onAuthCheckState();
-    props.onStartSetBookmarks(props.token);
-  }, [props]);
+    onAuthCheckState();
+    onStartSetBookmarks(token);
+  }, []); // eslint-disable-line
 
   let routes = (
     <Switch>
       <Route path='/' component={BookmarkList} exact={true} />
-      <Route path='/auth' component={asyncAuth} />
+      <Route path='/auth' component={Auth} />
       <Route component={NotFoundPage} />
     </Switch>
   );
 
-  if (props.isAuthenticated) {
+  if (isAuthenticated) {
     routes = (
       <Switch>
         <Route path='/' component={BookmarkList} exact={true} />
-        <Route path='/create' component={asyncAddBookmark} />
-        <Route path='/edit/:id' component={asyncEditBookmark} />
-        <Route path='/auth' component={asyncAuth} />
+        <Route path='/create' component={AddBookmark} />
+        <Route path='/edit/:id' component={EditBookmark} />
+        <Route path='/auth' component={Auth} />
         <Route component={NotFoundPage} />
       </Switch>
     );
