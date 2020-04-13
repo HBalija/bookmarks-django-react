@@ -30,7 +30,7 @@ const BookmarkList = props => {
       <div
         className="center-container">
         {
-          props.listLoading ?
+          props.isLoading ?
             <Spinner /> :
             props.bookmarks.map(bookmark => (
               <BookmarkListItem
@@ -54,7 +54,7 @@ const BookmarkList = props => {
 const mapStateToProps = state => {
   return {
     bookmarks: getBookmarks(state.bookmarks.bookmarks, state.filters, state.auth.username),
-    listLoading: state.bookmarks.listLoading,
+    isLoading: state.bookmarks.isLoading,
     username: state.auth.username
   };
 };

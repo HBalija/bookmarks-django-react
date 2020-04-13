@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
 import * as actions from '../../store/actions/actionIndex';
@@ -7,13 +7,18 @@ import * as actions from '../../store/actions/actionIndex';
 import Spinner from '../UI/Spinner';
 
 
-const UserForm = ({ onAuth, isAuthenticated }) => {
+const UserForm = () => {
 
   const [error, setError] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [action, setAction] = useState('Sign in');
   const [isLoading, setLoading] = useState(false);
+
+  const dispatch = useDispatch();
+  const onAuth = (data, method) => dispatch(actions.auth(data, method));
+
+  const isAuthenticated = useSelector(state => state.auth.username !== null);
 
   const submitHandler = e => {
     e.preventDefault();
@@ -79,16 +84,4 @@ const UserForm = ({ onAuth, isAuthenticated }) => {
   return jsx;
 };
 
-const mapStateToProps = state => {
-  return {
-    isAuthenticated: state.auth.username !== null
-  };
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-    onAuth: (data, method) => dispatch(actions.auth(data, method))
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(UserForm);
+export default UserForm;

@@ -28,7 +28,7 @@ const EditBookmark = props => {
           throw(error);
         });
     }
-  }, []);  // eslint-disable-line
+  }, []); // eslint-disable-line
 
   let jsx = (
     <>

@@ -2,25 +2,32 @@ import * as actionTypes from '../actions/actionTypes';
 
 const defaultState = {
   bookmarks: [],
-  listLoading: true
+  isLoading: false
 };
 
 const bookmarksReducer = (state = defaultState, action) => {
 
   switch (action.type) {
 
+  case actionTypes.START_LOADING:
+    return {
+      ...state,
+      isLoading: true
+    };
+
   case actionTypes.SET_BOOKMARKS:
     return {
       ...state,
       bookmarks: [ ...action.bookmarks ],
-      listLoading: false
+      isLoading: false
     };
 
   case actionTypes.ADD_BOOKMARK:
     return {
       ...state,
-      bookmarks: [action.bookmark, ...state.bookmarks] }
-    ;
+      bookmarks: [action.bookmark, ...state.bookmarks],
+      isLoading: false
+    };
 
   case actionTypes.REMOVE_BOOKMARK:
     return {

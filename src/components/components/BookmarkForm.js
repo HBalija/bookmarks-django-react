@@ -8,7 +8,7 @@ const BookmarkForm = props => {
   const [name, setName] = useState(bookmark ? bookmark.name: '');
   const [description, setDescription] = useState(bookmark ? bookmark.description: '');
   const [bookmark_link, setBookmarkLink] = useState(bookmark ? bookmark.bookmark_link: '');
-  const [is_public, setIsPublic] = useState(bookmark ? bookmark.is_public: '');
+  const [is_public, setIsPublic] = useState(bookmark ? bookmark.is_public: false);
   const [error, setError] = useState('');
 
   const submitHandler = e => {

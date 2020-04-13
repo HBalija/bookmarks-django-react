@@ -1,6 +1,6 @@
-import React, { useEffect, Suspense } from 'react';
+import React, { useEffect, Suspense, useCallback } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import * as actions from '../store/actions/actionIndex';
 
@@ -8,6 +8,7 @@ import BookmarkList from '../components/containers/BookmarkList';
 import Layout from '../components/UI/Layout';
 import NotFoundPage from '../components/UI/NotFoundPage';
 import Spinner from '../components/UI/Spinner';
+
 
 const Auth = React.lazy(() => {
   return import('../components/containers/Auth');
@@ -22,13 +23,20 @@ const EditBookmark = React.lazy(() => {
 });
 
 
-const AppRouter = props => {
-  const { onAuthCheckState, onStartSetBookmarks, isAuthenticated, token } = props;
+const AppRouter = () => {
+
+  const isAuthenticated = useSelector(state => state.auth.username !== null);
+  const token = useSelector(state => state.auth.accessToken);
+
+  const dispatch = useDispatch();
+  const onAuthCheckState = useCallback(() => dispatch(actions.authCheckState()), [dispatch]);
+  const onStartSetBookmarks = useCallback(
+    token => dispatch(actions.startSetBookmarks(token)), [dispatch]);
 
   useEffect(() => {
     onAuthCheckState();
     onStartSetBookmarks(token);
-  }, []); // eslint-disable-line
+  }, [token, onAuthCheckState, onStartSetBookmarks]);
 
   let routes = (
     <Switch>
@@ -61,19 +69,4 @@ const AppRouter = props => {
   );
 };
 
-
-const mapStateToProps = state => {
-  return {
-    isAuthenticated: state.auth.username !== null,
-    token: state.auth.accessToken
-  };
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-    onAuthCheckState: () => dispatch(actions.authCheckState()),
-    onStartSetBookmarks: token => dispatch(actions.startSetBookmarks(token))
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(AppRouter);
+export default AppRouter;

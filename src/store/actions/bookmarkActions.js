@@ -2,6 +2,11 @@ import axiosInstance from '../../axios';
 import * as actionTypes from './actionTypes';
 
 
+// START LOADING
+
+export const startLoading = () => ({ type: actionTypes.START_LOADING });
+
+
 // ADD_BOOKMARK
 
 const addBookmark = (bookmark, id) => ({
@@ -17,6 +22,7 @@ const addBookmark = (bookmark, id) => ({
 
 export const startAddBookmark = (token, data) => {
   return dispatch => {
+    dispatch(startLoading());
     axiosInstance.post('/bookmarks/', data, { headers: { Authorization: `JWT ${token}` } })
       .then(res => {
         dispatch(addBookmark(data, res.data.id));
@@ -66,6 +72,7 @@ const setBookmarks = bookmarks => ({
 
 export const startSetBookmarks = token => {
   return dispatch => {
+    dispatch(startLoading());
     axiosInstance.get('/bookmarks/', { headers: { Authorization: token ? `JWT ${token}` : '' } })
       .then(response => {
         dispatch(setBookmarks(response.data));
