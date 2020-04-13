@@ -1,7 +1,11 @@
 import React from 'react';
+import Header from '../components/Header';
 
 export default props => (
-  <div className="layout-container">
-    {props.children}
-  </div>
+  <>
+    <Header />
+    <div className="layout-container">
+      {props.children}
+    </div>
+  </>
 );

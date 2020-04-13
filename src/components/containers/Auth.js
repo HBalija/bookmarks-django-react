@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
@@ -6,98 +6,78 @@ import * as actions from '../../store/actions/actionIndex';
 
 import Spinner from '../UI/Spinner';
 
-class UserForm extends React.Component {
 
-  state = {
-    error: '',
-    username: '',
-    password: '',
-    action: 'Sign in',
-    loading: false
-  }
+const UserForm = ({ onAuth, isAuthenticated }) => {
 
-  usernameChangeHandler = e => {
-    const username = e.target.value;
-    this.setState(() => ({ username }));
-  }
+  const [error, setError] = useState('');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [action, setAction] = useState('Sign in');
+  const [isLoading, setLoading] = useState(false);
 
-  passwordChangeHandler = e => {
-    const password = e.target.value;
-    this.setState(() => ({ password }));
-  }
-
-  submitHandler = e => {
+  const submitHandler = e => {
     e.preventDefault();
 
-    if (!this.state.username || (this.state.password.length < 8)) {
-      this.setState(() => ({ error: 'Please provide username and password of min 8 characters' }));
+    if (!username || (password.length < 8)) {
+      setError('Please provide username and password of min 8 characters');
     } else {
-      this.setState(() => ({ error: '' }));
+      setError('');
 
-      const authData = {
-        username: this.state.username,
-        password: this.state.password
-      };
-
-      this.setState(() => ({ loading: true }));
-      this.props.onAuth(authData, this.state.action)
-        .then(() => {
-          this.setState(() => ({ loading: false }));
-        })
+      const authData = { username, password };
+      setLoading(true);
+      onAuth(authData, action)
         .catch(error => {
           const errData = error.response.data;
           const responseError = errData.username ? errData.username[0] : errData.detail;
-          this.setState(() => ({ error: responseError, loading: false }));
+          setError(responseError);
+          setLoading(false);
         });
     }
-  }
+  };
 
-  actionChangeHandler = () => {
-    this.setState(prevState => {
-      let action = prevState.action;
-      if (prevState.action === 'Sign up') action = 'Sign in';
-      else if (prevState.action === 'Sign in') action = 'Sign up';
-      return { action };
+  const actionChangeHandler = () => {
+    setAction(prevState => {
+      let action = prevState;
+      if (prevState === 'Sign up') action = 'Sign in';
+      else if (prevState === 'Sign in') action = 'Sign up';
+      return action;
     });
-  }
+  };
 
-  render() {
+  let jsx = (
+    <>
+      {isAuthenticated && <Redirect to="/" />}
+      {error && <p className="error-message">{error}</p> }
+      <div className="center-container">
+        <form onSubmit={submitHandler} className="form" >
+          <input
+            className="text-input"
+            type="text"
+            value={username}
+            onChange={e => setUsername(e.target.value)}
+            placeholder="username"
+            autoFocus />
+          <input
+            className="text-input"
+            type="password"
+            value={password}
+            placeholder="password"
+            onChange={e => setPassword(e.target.value)} />
+          <button>{action}</button>
+          <p
+            onClick={actionChangeHandler}
+            className="signin-switch">
+            Go to {action === 'Sign up' ? ' Sign in' : ' Sign up' }
+          </p>
+        </form>
+      </div>
+    </>
+  );
 
-    let jsx = (
-      <>
-        {this.props.isAuthenticated && <Redirect to="/" />}
-        {this.state.error && <p className="error-message">{this.state.error}</p> }
-        <div className="center-container">
-          <form onSubmit={this.submitHandler} className="form" >
-            <input
-              className="text-input"
-              type="text"
-              value={this.state.username}
-              onChange={this.usernameChangeHandler}
-              placeholder="username"
-              autoFocus />
-            <input
-              className="text-input"
-              type="password"
-              value={this.state.password}
-              placeholder="password"
-              onChange={this.passwordChangeHandler} />
-            <button>{this.state.action}</button>
-            <p
-              onClick={this.actionChangeHandler}
-              className="signin-switch">
-            Go to {this.state.action === 'Sign up' ? ' Sign in' : ' Sign up' }
-            </p>
-          </form>
-        </div>
-      </>
-    );
+  if (isLoading) jsx = <Spinner />;
 
-    if (this.state.loading) jsx = <Spinner />;
-
-    return jsx;
-  }
-}
+  return jsx;
+};
 
 const mapStateToProps = state => {
   return {

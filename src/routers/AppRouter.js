@@ -1,25 +1,23 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, Suspense } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import * as actions from '../store/actions/actionIndex';
-import asyncComponent from '../components/hoc/asyncComponent';
 
 import BookmarkList from '../components/containers/BookmarkList';
-import Header from '../components/components/Header';
 import Layout from '../components/UI/Layout';
 import NotFoundPage from '../components/UI/NotFoundPage';
+import Spinner from '../components/UI/Spinner';
 
-
-const Auth = asyncComponent(() => {
+const Auth = React.lazy(() => {
   return import('../components/containers/Auth');
 });
 
-const AddBookmark = asyncComponent(() => {
+const AddBookmark = React.lazy(() => {
   return import('../components/containers/AddBookmark');
 });
 
-const EditBookmark = asyncComponent(() => {
+const EditBookmark = React.lazy(() => {
   return import('../components/containers/EditBookmark');
 });
 
@@ -35,7 +33,7 @@ const AppRouter = props => {
   let routes = (
     <Switch>
       <Route path='/' component={BookmarkList} exact={true} />
-      <Route path='/auth' component={Auth} />
+      <Route path='/auth' component={() => <Auth />} />
       <Route component={NotFoundPage} />
     </Switch>
   );
@@ -54,9 +52,10 @@ const AppRouter = props => {
 
   return (
     <BrowserRouter>
-      <Header />
       <Layout>
-        {routes}
+        <Suspense fallback={<Spinner />}>
+          {routes}
+        </Suspense>
       </Layout>
     </BrowserRouter>
   );
@@ -68,7 +67,6 @@ const mapStateToProps = state => {
     isAuthenticated: state.auth.username !== null,
     token: state.auth.accessToken
   };
-
 };
 
 const mapDispatchToProps = dispatch => {
