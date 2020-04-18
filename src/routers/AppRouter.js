@@ -26,17 +26,13 @@ const EditBookmark = React.lazy(() => {
 const AppRouter = () => {
 
   const isAuthenticated = useSelector(state => state.auth.username !== null);
-  const token = useSelector(state => state.auth.accessToken);
 
   const dispatch = useDispatch();
   const onAuthCheckState = useCallback(() => dispatch(actions.authCheckState()), [dispatch]);
-  const onStartSetBookmarks = useCallback(
-    token => dispatch(actions.startSetBookmarks(token)), [dispatch]);
 
   useEffect(() => {
     onAuthCheckState();
-    onStartSetBookmarks(token);
-  }, [token, onAuthCheckState, onStartSetBookmarks]);
+  }, [onAuthCheckState]);
 
   let routes = (
     <Switch>

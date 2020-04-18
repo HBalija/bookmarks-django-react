@@ -1,5 +1,6 @@
 import axiosInstance from '../../axios';
 import * as actionTypes from './actionTypes';
+import * as actions from './actionIndex';
 
 
 // amount of time our token is valid in miliseconds (1 hour)
@@ -21,7 +22,11 @@ export const authCheckState = () => {
       const expirationDate = new Date(userData.expirationDate);
 
       if (expirationDate > new Date()) {
+        // dispatch setBookmarks with token
+        dispatch(actions.startSetBookmarks(userData.accessToken));
+
         dispatch(authSuccess(userData.username, userData.accessToken));
+
         // dispatch time delta to calculate time our token is valid
         dispatch(checkAuthTimeout(expirationDate.getTime() - new Date().getTime()));
       } else {
@@ -29,6 +34,8 @@ export const authCheckState = () => {
         dispatch(logout());
       }
     }
+    // dispatch setBookmarks without a token
+    else dispatch(actions.startSetBookmarks());
   };
 };
 
